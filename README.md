@@ -1,4 +1,4 @@
-# ASE591-HW_GP6
+# ASE 591 Group 37 Presents: Column Summaries
 
 ## Objective
 The objective of this repository is to replicate, in python, [HW scripts](https://github.com/txt/ase23), which was originally written in Lua. 
