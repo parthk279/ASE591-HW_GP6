@@ -32,13 +32,13 @@ class SYM:
             self.mode = newsym
 
 
-    def mid():
+    def mid(self):
         """
         Returns mode
         """
         return self.mode
 
-    def div():
+    def div(self):
         """
         Returns the Shannon Entropy of the Object's counter "has"
         """
@@ -70,7 +70,7 @@ class NUM():
         d = n - self.mu
         self.mu += d/self.count
         self.m2 += d*(n - self.mu)
-        self.lo = min(self.lo, m)
+        self.lo = min(self.lo, n)
         self.hi = max(self.hi, n)
 
     def mid(self):
@@ -100,6 +100,7 @@ def rand(lo = 0,hi = 1):
     """
     Retruns the float value x between lo and hi
     """
+    global Seed
     Seed = (16807 * Seed) % 2147483647
     return lo + (hi - lo) * Seed / 2147483647
 
