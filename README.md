@@ -6,7 +6,7 @@
 [![Stars](https://img.shields.io/github/forks/parthk279/ASE591-HW_GP6)](https://github.com/parthk279/ASE591-HW_GP6/network/members)
 [![codecov](https://codecov.io/gh/parthk279/ASE591-HW_GP6/branch/dev/graph/badge.svg?token=SmiSDihWvE)](https://codecov.io/gh/parthk279/ASE591-HW_GP6)
 ![GitHub contributors](https://img.shields.io/badge/Contributors-4-blue)
-[![DOI](https://zenodo.org/badge/545725634.svg)](https://zenodo.org/badge/latestdoi/545725634)
+[![DOI](https://zenodo.org/badge/589656224.svg)](https://zenodo.org/badge/latestdoi/589656224)
 
 
 ## Objective
