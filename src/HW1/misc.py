@@ -1,3 +1,6 @@
+import sys
+
+
 def misc(fun, iterable):
     """
     Maps the function over the iterable
