@@ -2,6 +2,7 @@ import math
 import sys
 from operator import itemgetter
 
+
 #########################################################
 #                                                       #
 #                       CLASSES                         #
@@ -19,18 +20,19 @@ class SYM:
         self.n = 0
         self.has = {}
         self.most = 0
-        self.mode = 0
+        self.mode = None
 
-    def add(self, newsym : str):
+    def add(self, newSym: str):
         """
         Takes a string symbol as argument and adds it to the SYM's "has" counter. If
         the new symbol is the one with most entries "mode" and "most" are modified
         """
-        self.has[newsym] = 1+ self.has.get(newsym, 0)
-        if self.has[newsym] > self.most:
-            self.most = self.has[newsym]
-            self.mode = newsym
-
+        if newSym != "?":
+            self.n = self.n + 1
+            self.has[newSym] = 1 + self.has.get(newSym, 0)
+            if self.has[newSym] > self.most:
+                self.most = self.has[newSym]
+                self.mode = newSym
 
     def mid(self):
         """
@@ -42,13 +44,13 @@ class SYM:
         """
         Returns the Shannon Entropy of the Object's counter "has"
         """
-        freqlist = [i/sum(self.has.values()) for i in self.has.values()]
-        entropies = [i*math.log(i, 2) for i in freqlist]
+        freqList = [i / sum(self.has.values()) for i in self.has.values()]
+        entropies = [i * math.log(i, 2) for i in freqList]
         entropy = -sum(entropies)
         return entropy
 
 
-class NUM():
+class NUM:
     def __init__(self):
         """
         Constructor for NUM Class
@@ -68,8 +70,8 @@ class NUM():
         """
         self.count += 1
         d = n - self.mu
-        self.mu += d/self.count
-        self.m2 += d*(n - self.mu)
+        self.mu += d / self.count
+        self.m2 += d * (n - self.mu)
         self.lo = min(self.lo, n)
         self.hi = max(self.hi, n)
 
@@ -86,7 +88,7 @@ class NUM():
         if self.m2 < 0 or self.n < 2:
             return 0
         else:
-            return (self.m2/(self.n-1))**0.5
+            return (self.m2 / (self.n - 1)) ** 0.5
 
 
 #########################################################
@@ -96,7 +98,9 @@ class NUM():
 #########################################################
 
 Seed = 937162211
-def rand(lo = 0,hi = 1):
+
+
+def rand(lo=0, hi=1):
     """
     Retruns the float value x between lo and hi
     """
@@ -109,13 +113,14 @@ def rint(lo, hi):
     """
     Returns the rounded off digit of a random float value between lo and hi
     """
-    return math.round(0.5 + rand(lo, hi))
+    return round(0.5 + rand(lo, hi))
 
-def rnd(n, nPlaces = 3):
+
+def rnd(n, nPlaces=3):
     """
     Rounds off the digit to n number of places
     """
-    return math.round(n*(10**nPlaces) + 0.5)/(10**nPlaces)
+    return round(n * (10 ** nPlaces) + 0.5) / (10 ** nPlaces)
 
 
 #########################################################
@@ -132,11 +137,12 @@ def maping(fun, iterable):
     """
     return [fun(i) for i in iterable]
 
+
 ### NEED TO DO KAP ###
 
 ### NEED TO DO SORT ###
 
-def keys(t : dict):
+def keys(t: dict):
     """
     Returns the sorted list of dictionary keys
     t : dictionary
@@ -170,6 +176,7 @@ def oo(t):
     else:
         return dict(sorted(t.items(), key=itemgetter(1)))
 
+
 ### NEED TO DO O() ###
 
 def coerce(s):
@@ -179,6 +186,7 @@ def coerce(s):
         elif s1 == "false" or s1 == "False":
             return False
         return s1
+
     if s.isnumeric():
         return int(s)
     elif "." in s:
