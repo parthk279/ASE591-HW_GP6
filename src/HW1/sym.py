@@ -9,7 +9,7 @@ class SYM:
     def add(self,x):
         if x != "?": 
              self.n = self.n + 1 
-             if(self.has.get[x]!=null):
+             if(self.has.get[x]!=None):
                 self.has[x]=1+self.has[x]
              else:
                  self.has[x] = 1
