@@ -1,5 +1,4 @@
-import sys
-
+import sys, re, math
 
 def misc(fun, iterable):
     """
