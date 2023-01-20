@@ -1,6 +1,7 @@
 import sys, re, math, yaml
-from tests import *
+from test_all import *
 from misc import *
+from test_all import test_eg
 with open("config.yml", "r") as config_file:
     cfg = yaml.safe_load(config_file)
 
