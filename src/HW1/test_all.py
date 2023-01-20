@@ -1,9 +1,8 @@
 from misc import *
 from num import NUM
-from src.HW1.numerics import rand
+from numerics import *
 from sym import SYM
 import yaml
-from src.HW1.numerics import rnd
 
 with open("config.yml", "r") as config_file:
     cfg = yaml.safe_load(config_file)
