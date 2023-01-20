@@ -1,7 +1,6 @@
 import sys, re, math, yaml
 from test_all import *
 from misc import *
-from test_all import test_eg
 from config import *
 
 def main():

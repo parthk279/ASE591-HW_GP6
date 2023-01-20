@@ -6,7 +6,6 @@ from config import *
 from main import *
 
 
-
 def eg(key, str, fun):
   egs[key] = fun
   global help
