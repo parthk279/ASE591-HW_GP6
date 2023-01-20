@@ -11,6 +11,7 @@ with open("config.yml", "r") as config_file:
 
 def eg(key, str, fun):
   cfg.egs[key] = fun
+  global help
   help = help + fmt("  -g  %s\t%s\n",key,str)
 
 def test_rand():
