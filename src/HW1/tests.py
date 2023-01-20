@@ -1,15 +1,17 @@
 from misc import *
 from num import NUM
+from src.HW1.numerics import rand
 from sym import SYM
 import yaml
+from src.HW1.numerics import rnd
 
 with open("config.yml", "r") as config_file:
     cfg = yaml.safe_load(config_file)
 
 
 def eg(key, str, fun):
-  egs[key] = fun
-  help = help + Fmt("  -g  %s\t%s\n",key,str)
+  cfg.egs[key] = fun
+  help = help + fmt("  -g  %s\t%s\n",key,str)
 
 def test_rand():
     n1, n2 = NUM(), NUM()

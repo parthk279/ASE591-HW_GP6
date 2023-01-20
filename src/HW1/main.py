@@ -12,7 +12,7 @@ def main():
   if cfg["the"]['help'] == True:
       print(help)
   else:
-    for what, fun in egs.items():
+    for what, fun in cfg.egs.items():
         if cfg["the"]['go'] == 'all' or cfg["the"]['go'] == what:
           for k,v in saved.items():
               cfg["the"][k] = v
