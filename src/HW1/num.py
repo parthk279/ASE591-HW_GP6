@@ -9,6 +9,7 @@ class NUM:
         lo : lowest numerical entry
         hi : highest numerical entry
         """
+        self.n = 0
         self.count, self.mu, self.m2 = 0, 0, 0
         self.lo, self.hi = math.inf, -math.inf
 
