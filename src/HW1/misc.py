@@ -1,5 +1,5 @@
 import sys, re, math
-
+from operator import itemgetter
 def misc(fun, iterable):
     """
     Maps the function over the iterable
