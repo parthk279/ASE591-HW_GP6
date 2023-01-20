@@ -1,6 +1,4 @@
 Seed = 937162211
-
-
 def rand(lo=0, hi=1):
     """
     Retruns the float value x between lo and hi

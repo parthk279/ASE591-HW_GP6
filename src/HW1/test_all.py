@@ -2,24 +2,23 @@ from misc import *
 from num import NUM
 from numerics import *
 from sym import SYM
-import yaml
+from config import *
+from main import *
 
-with open("config.yml", "r") as config_file:
-    cfg = yaml.safe_load(config_file)
 
 
 def eg(key, str, fun):
-  cfg.egs[key] = fun
+  egs[key] = fun
   global help
   help = help + fmt("  -g  %s\t%s\n",key,str)
 
 def test_rand():
     n1, n2 = NUM(), NUM()
     global Seed
-    Seed = cfg["the"]['seed']
+    Seed = the['seed']
     for i in range(1,10**3+1):
         n1.add(rand(0,1))
-    Seed = cfg["the"]['seed']
+    Seed = the['seed']
     for i in range(1,10**3+1):
         n2.add(rand(0,1))
     m1,m2 = rnd(n1.mid(),1), rnd(n2.mid(),1)
@@ -38,5 +37,5 @@ def test_num():
     return 11/7 == num.mid() and 0.787 == rnd(num.div())
 
 def test_the():
-  print(cfg["the"])
+  print(the)
 
