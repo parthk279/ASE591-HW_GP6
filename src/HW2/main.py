@@ -1,5 +1,5 @@
 import sys, re, math
-from test_all import *
+from test_allHW2 import *
 from misc import *
 from config import *
 
