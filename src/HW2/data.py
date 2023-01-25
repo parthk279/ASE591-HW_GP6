@@ -14,3 +14,15 @@ class DATA:
         else:
             for i in src:
                 self.add(i)
+
+    def add(self, t):
+        """
+        Add a new row and update the column headers
+        """
+        if self.cols:
+            if isinstance(t, list):
+                t = ROW(t)
+            self.rows.append(t)
+            self.cols.add(t)
+        else:
+            self.cols = COLS(t)
