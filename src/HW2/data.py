@@ -1,6 +1,6 @@
-# from misc import *
-# from row import ROW
-# from col import COLS
+from misc import *
+from row import ROW
+from col import COLS
 
 class DATA:
     def __init__(self, src):
