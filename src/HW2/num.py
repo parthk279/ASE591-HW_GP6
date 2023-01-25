@@ -41,3 +41,6 @@ class NUM:
         else:
             return (self.m2 / (self.n - 1)) ** 0.5
 
+    def rnd(self,x):
+        
+        return x
