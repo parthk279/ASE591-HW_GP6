@@ -26,3 +26,4 @@ class DATA:
             self.cols.add(t)
         else:
             self.cols = COLS(t)
+
