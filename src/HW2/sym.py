@@ -39,3 +39,7 @@ class SYM:
         entropies = [i * math.log(i, 2) for i in freqList]
         entropy = -sum(entropies)
         return entropy
+
+    def rnd(self,x):
+        
+        return x

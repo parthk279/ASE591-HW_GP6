@@ -35,3 +35,13 @@ class DATA:
         for x in self.rows or []:
             data.add(x)
         return data
+
+    def stats(self, what = None, cols = None, nPlaces = None):
+        """
+        Function for returning a certain attribute or certain stats 
+        for a column in data
+        """
+        def fun(k, col):
+          return round(getattr(col, what or "mid")(col), nPlaces), col.txt
+        return [fun(k, col) for k, col in enumerate(cols or self.cols.y)]
+
