@@ -4,12 +4,23 @@ from numerics import *
 from sym import SYM
 from config import *
 from main import *
-
+from data import *
 
 def eg(key, str, fun):
   egs[key] = fun
   global help
   help = help + fmt("  -g  %s\t%s\n",key,str)
+
+def test_data():
+    data = DATA(the['file'])
+    return len(data.rows) == 398 and data.cols.y[0].w == -1 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
+def char_count(t):
+    global n
+    n += len(t)
+    
+def test_csv():
+    csv(the['file'], char_count)
+    return n == 8*399
 
 def test_rand():
     n1, n2 = NUM(), NUM()
