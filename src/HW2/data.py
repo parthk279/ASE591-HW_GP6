@@ -1,7 +1,7 @@
 from misc import *
 from row import ROW
-from col import COLS
-
+from col import *
+import csv
 class DATA:
     def __init__(self, src):
         """
