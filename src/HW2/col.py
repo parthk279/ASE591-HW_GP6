@@ -12,9 +12,9 @@ class COL:
 
         for column_name in self.names:
             if column_name[0].isupper():
-                column=Num(names.index(column_name),column_name)
+                column= NUM(names.index(column_name),column_name)
             else:
-                column=Sym(names.index(column_name),column_name)
+                column= SYM(names.index(column_name),column_name)
             
             if column_name[-1]!=':':
                 if('!' in column_name or '+' in column_name or '-' in column_name):
