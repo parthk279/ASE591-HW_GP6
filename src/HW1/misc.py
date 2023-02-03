@@ -56,13 +56,12 @@ def coerce(s):
         elif s == "false" or s == "False":
             return False
         return s
-
-    if s.isdigit():
-        return int(s)
-    elif "." in s and s.replace('.','').isdigit():
-        return float(s)
-    else:
-        return s
+        if s.isdigit():
+            return int(s)
+        elif "." in s and s.replace('.','').isdigit():
+            return float(s)
+        else:
+            return s
 
 def cli(options):
   args = sys.argv[1:]
@@ -75,7 +74,7 @@ def cli(options):
         elif v == "true":
             v = "false"
         else:
-            v = arg[n + 1]
+            v = args[n + 1]
       options[k] = coerce(v)
     return options 
 
