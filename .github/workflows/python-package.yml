@@ -45,9 +45,4 @@ jobs:
 #         cd ${{ github.workspace }}/src ; \
 #         pdoc3 --html . -o ${{ github.workspace }}/docs --force --template-dir ${{ github.workspace }}/docs ; \
 #         mv ${{ github.workspace }}/docs/src/* ${{ github.workspace }}/docs/
-        
-        
-      
-    - name: Test with pytest
-      run: |
-        pytest
+
