@@ -1,3 +1,8 @@
+__author__ = "Group-6"
+__version__ = "1.0.0"
+__license__ = "MIT"
+
+
 import sys, re, math
 from test_all import *
 from misc import *
