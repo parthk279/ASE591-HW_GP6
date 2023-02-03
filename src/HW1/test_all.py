@@ -11,6 +11,7 @@ def eg(key, str, fun):
   global help
   help = help + '  -g '+ key + '\t' + str + '\n'
 
+  
 def test_rand():
     n1, n2 = NUM(), NUM()
     global Seed
