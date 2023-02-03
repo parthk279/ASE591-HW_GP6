@@ -21,7 +21,7 @@ jobs:
         python-version: '3.8'  
     - name: Run tests
       run: |
-        cd ./src/HW1; (python script.py -g all )
+        cd ./src/HW1; (python main.py -g all )
     - run: echo "🍎 This job's status is ${{ job.status }}."
   
   
