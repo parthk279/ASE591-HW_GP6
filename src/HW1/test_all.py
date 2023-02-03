@@ -32,5 +32,5 @@ def test_num():
     return 11/7 == num.mid() and 0.787 == rnd(num.div())
 
 def test_the():
-  print(the)
+  print(str(the))
 
