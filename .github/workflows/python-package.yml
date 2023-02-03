@@ -10,6 +10,21 @@ on:
     branches: [ "main" ]
 
 jobs:
+  
+  HW1Test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.8'  
+    - name: Run tests
+      run: |
+        cd ./src/HW1; (python script.py -g all )
+    - run: echo "🍎 This job's status is ${{ job.status }}."
+  
+  
   build:
 
     runs-on: ubuntu-latest
