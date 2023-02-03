@@ -11,7 +11,7 @@ class NUM:
         """
         self.n = 0
         self.count, self.mu, self.m2 = 0, 0, 0
-        self.lo, self.hi = math.inf, -math.inf
+        self.lo, self.hi = sys.maxsize, -sys.maxsize
 
     def add(self, n):
         """
@@ -19,12 +19,13 @@ class NUM:
         Recalculates mean (mu) and std dev (m2).
         """
         if n != "?":
-            self.count += 1
+            self.n += 1
             d = n - self.mu
             self.mu += d / self.count
             self.m2 += d * (n - self.mu)
             self.lo = min(self.lo, n)
             self.hi = max(self.hi, n)
+        return self
 
     def mid(self):
         """
