@@ -34,7 +34,7 @@ jobs:
         python-version: '3.8'  
     - name: test HW2
       run: |
-        cd ./src/HW3; (python main.py -g all )
+        cd ./src/HW2; (python main.py -g all )
     - run: echo "🍎 This job's status is ${{ job.status }}."
   
   
