@@ -29,3 +29,4 @@ if __name__ == "__main__":
   eg("rand", "testing Random function", test_rand)
   eg("sym", "testing the sym class", test_sym)
   eg("num", "testing the num class", test_num)
+  main()
