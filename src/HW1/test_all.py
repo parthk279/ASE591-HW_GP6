@@ -5,10 +5,6 @@ from sym import SYM
 from config import *
 from main import *
 
-def eg(key, str, fun):
-  egs[key] = fun
-  global help
-  help = help + '  -g '+ key + '\t' + str + '\n'
 
   
 def test_rand():
