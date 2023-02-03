@@ -24,7 +24,6 @@ jobs:
         cd ./src/HW1; (python main.py -g all )
     - run: echo "🍎 This job's status is ${{ job.status }}."
   
-  
   build:
 
     runs-on: ubuntu-latest
