@@ -15,7 +15,10 @@ def misc(fun, iterable):
         return [fun(i) for i in iterable]
 
 ### NEED TO DO SORT ###
-
+def eg(key, str, fun):
+  egs[key] = fun
+  global help
+  help = help + '  -g '+ key + '\t' + str + '\n'
 def keys(t: dict):
     """
     Returns the sorted list of dictionary keys
