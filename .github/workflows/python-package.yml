@@ -16,7 +16,7 @@ jobs:
   
   
   build:
-
+  
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -36,7 +36,7 @@ jobs:
         pip install coverage
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     HW1Test:
-    runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v3
     - name: Install Python
