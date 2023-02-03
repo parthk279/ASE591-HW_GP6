@@ -25,8 +25,8 @@ def main():
 
 
 if __name__ == "__main__":
-  eg("the", "testng the", test_the)
-  eg("rand", "testing Random function", test_rand)
-  eg("sym", "testing the sym class", test_sym)
-  eg("num", "testing the num class", test_num)
+  eg('the', "testng the", test_the)
+  eg('rand', "testing Random function", test_rand)
+  eg('sym', "testing the sym class", test_sym)
+  eg('num', "testing the num class", test_num)
   main()
