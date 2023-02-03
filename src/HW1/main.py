@@ -2,7 +2,17 @@ import sys, re, math
 from test_all import *
 from misc import *
 from config import *
-  
+help = """
+script.py : an example script with help text and a test suite
+(c)2023
+USAGE:   script.py  [OPTIONS] [-g ACTION]
+OPTIONS:
+  -d  --dump  on crash, dump stack = false
+  -g  --go    start-up action      = data
+  -h  --help  show help            = false
+  -s  --seed  random number seed   = 937162211
+ACTIONS:
+"""
 def main():
     saved,fails={},0
     for k,v in cli(settings(help)).items():
