@@ -21,7 +21,7 @@ class NUM:
         if n != "?":
             self.n += 1
             d = n - self.mu
-            self.mu += d / self.count
+            self.mu += d / self.n
             self.m2 += d * (n - self.mu)
             self.lo = min(self.lo, n)
             self.hi = max(self.hi, n)
