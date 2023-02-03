@@ -51,34 +51,32 @@ def settings(s):
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)",s))
 
 def coerce(s):
-    def fun(s1):
-        if s1 == "true" or s1 == "True":
+        if s == "true" or s == "True":
             return True
-        elif s1 == "false" or s1 == "False":
+        elif s == "false" or s == "False":
             return False
-        return s1
+        return s
 
-    if s.isnumeric():
+    if s.isdigit():
         return int(s)
-    elif "." in s:
+    elif "." in s and s.replace('.','').isdigit():
         return float(s)
     else:
-        return fun(s.strip())
+        return s
 
 def cli(options):
-  arg = sys.argv[1:]
+  args = sys.argv[1:]
   for k, v in options.items():
     v = str(v)
-    for n, x in enumerate(arg):
+    for n, x in enumerate(args):
       if x == "-"+k[0] or  x == "--"+k:
         if v == "false":
-          v = "true"
+            v = "true"
         elif v == "true":
-          v = "false"
+            v = "false"
         else:
-          v = arg[n + 1]
-      options[k] = coerce(v) 
-
+            v = arg[n + 1]
+      options[k] = coerce(v)
     return options 
 
 
