@@ -9,7 +9,7 @@ from main import *
 def eg(key, str, fun):
   egs[key] = fun
   global help
-  help = help + fmt("  -g  %s\t%s\n",key,str)
+  help = help + '  -g '+ key + '\t' + str + '\n'
 
 def test_rand():
     n1, n2 = NUM(), NUM()
