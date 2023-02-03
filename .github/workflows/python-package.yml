@@ -48,7 +48,13 @@ jobs:
         coverage run -a -m main -g all --file ../../etc/data/auto93.csv 
         coverage report
         coverage html
-        
+    - name: Generate documentation
+      run: |
+        cd ${{ github.workspace }}/docs ; \
+        find . -name "*.html" -type f -delete ; \
+        cd ${{ github.workspace }}/src ; \
+        pdoc3 --html . -o ${{ github.workspace }}/docs --force --template-dir ${{ github.workspace }}/docs ; \
+        mv ${{ github.workspace }}/docs/src/* ${{ github.workspace }}/docs/
         
         
         
