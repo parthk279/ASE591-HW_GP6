@@ -64,6 +64,7 @@ def test_csv():
     """
     Function for testing the CSV function
     """
+    global csv
     n = 0
 
     def f(t):
