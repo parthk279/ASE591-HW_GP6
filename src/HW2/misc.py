@@ -3,6 +3,19 @@ from config import *
 from operator import itemgetter
 import os
 
+def csv(fileName, fun):
+    """
+    Function for reading the csv file and applying a function over the text in csv file
+    """
+
+    if os.path.exists(fileName) and fileName.endswith(".csv"):
+        with open(fileName, "r", encoding="utf-8") as file:
+            for _, row in enumerate(file):
+                r = list(map(coerce, row.strip().split(",")))
+                fun(r)
+    else:
+        print("File does not exist at : ", fileName)
+        return 0
 
 def misc(fun, iterable):
     """
