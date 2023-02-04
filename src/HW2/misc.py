@@ -76,9 +76,9 @@ def coerce(s):
             return False
         return s1
 
-    if s.isnumeric():
+    if s.isdigit():
         return int(s)
-    elif "." in s:
+    elif "." in s and s.replace(".", "").isdigit():
         return float(s)
     else:
         return fun(s.strip())
