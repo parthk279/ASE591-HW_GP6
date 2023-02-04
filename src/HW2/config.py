@@ -2,6 +2,7 @@ the = {
     'dump': False,
     'go': None,
     'seed': 937162211,
+    "file": "../../etc/data/auto93.csv"
 }
 egs = {}
 help = '''USAGE:   python main.py [OPTIONS] [-g ACTION]
