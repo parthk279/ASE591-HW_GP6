@@ -1,6 +1,9 @@
-import sys, re, math
+import math
+from numerics import *
+
+
 class NUM:
-    def __init__(self):
+    def __init__(self, at=None, txt=None):
         """
         Constructor for NUM Class
         count : To count number of entries
@@ -9,6 +12,8 @@ class NUM:
         lo : lowest numerical entry
         hi : highest numerical entry
         """
+        self.at = at if at else 0
+        self.txt = txt if txt else ""
         self.n = 0
         self.count, self.mu, self.m2 = 0, 0, 0
         self.lo, self.hi = math.inf, -math.inf
@@ -40,3 +45,9 @@ class NUM:
             return 0
         else:
             return (self.m2 / (self.n - 1)) ** 0.5
+
+    def rnd(self, x, n):
+        if x == "?":
+            return x
+        else:
+            return rnd(x, n)
