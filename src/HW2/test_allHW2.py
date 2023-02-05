@@ -1,4 +1,5 @@
 from misc import *
+from misc import csv
 from num import NUM
 from numerics import *
 from sym import SYM
