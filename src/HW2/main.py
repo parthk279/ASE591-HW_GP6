@@ -1,6 +1,6 @@
 __author__ = "NCSU Computer Science - CSC591 Spring 2023 Automated Software Engineering Group 6 "
 
-from test_all_HW2 import *
+from test_all_hw2 import *
 from misc import *
 from config import *
 
