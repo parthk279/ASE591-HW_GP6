@@ -1,6 +1,8 @@
-import sys, re, math
+import math
+
+
 class SYM:
-    def __init__(self):
+    def __init__(self, at = None, txt = None):
         """
         Constructor for SYM Class
         n : Count of symbols
@@ -8,6 +10,8 @@ class SYM:
         most : Symbol with most number of entries
         mode : Number of entries of "most" symbol
         """
+        self.at = at if at else 0
+        self.txt = txt if txt else ""
         self.n = 0
         self.has = {}
         self.most = 0
@@ -40,6 +44,13 @@ class SYM:
         entropy = -sum(entropies)
         return entropy
 
-    def rnd(self,x):
-        
+    def rnd(self, x, n):
         return x
+
+    def dist(self, s1, s2):
+        if s1 == "?" and s2 == "?":
+            return 1
+        elif s1 == s2:
+            return 0
+        else:
+            return 1
