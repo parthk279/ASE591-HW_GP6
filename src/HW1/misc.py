@@ -1,6 +1,7 @@
 import sys, re, math
 from operator import itemgetter
 from config import *
+
 def misc(fun, iterable):
     """
     Maps the function over the iterable
@@ -69,9 +70,9 @@ def cli(options):
     v = str(v)
     for n, x in enumerate(args):
       if x == "-"+k[0] or  x == "--"+k:
-        if v == "false":
+        if v == "false" or v =="False":
             v = "true"
-        elif v == "true":
+        elif v == "true" or v == "True":
             v = "false"
         else:
             v = args[n + 1]

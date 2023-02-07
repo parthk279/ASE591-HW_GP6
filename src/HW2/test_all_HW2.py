@@ -1,4 +1,5 @@
 from misc import *
+from misc import csv
 from num import NUM
 from numerics import *
 from sym import SYM
@@ -64,6 +65,7 @@ def test_csv():
     """
     Function for testing the CSV function
     """
+    global csv
     n = 0
 
     def f(t):
