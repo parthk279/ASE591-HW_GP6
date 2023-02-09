@@ -35,3 +35,4 @@ if __name__ == "__main__":
     eg("csv", "testing CSV Function", test_csv)
     eg("data", "testing DATA for reading csv", test_data)
     eg("stats", "returning statistics from DATA", test_stats)
+    main()
