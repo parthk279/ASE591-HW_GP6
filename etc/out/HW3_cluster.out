@@ -1,0 +1,92 @@
+============================= test session starts =============================
+collecting ... collected 12 items
+
+main.py::test_rand <- src\HW3\test_all_HW3.py 
+main.py::test_sym <- src\HW3\test_all_HW3.py 
+main.py::test_num <- src\HW3\test_all_HW3.py 
+main.py::test_the <- src\HW3\test_all_HW3.py 
+main.py::test_csv <- src\HW3\test_all_HW3.py 
+main.py::test_data <- src\HW3\test_all_HW3.py 
+main.py::test_stats <- src\HW3\test_all_HW3.py 
+main.py::test_clone <- src\HW3\test_all_HW3.py 
+main.py::test_around <- src\HW3\test_all_HW3.py 
+main.py::test_half <- src\HW3\test_all_HW3.py 
+main.py::test_cluster <- src\HW3\test_all_HW3.py 
+main.py::test_optimize <- src\HW3\test_all_HW3.py 
+
+======================== 12 passed, 1 warning in 0.52s ========================
+
+Process finished with exit code 0
+PASSED                     [  8%]
+PASSED                      [ 16%]
+PASSED                      [ 25%]
+PASSED                      [ 33%]
+{'dump': False, 'go': None, 'seed': 937162211, 'file': '../../etc/data/auto93.csv', 'Far': 0.95, 'min': 0.5, 'p': 2, 'Sample': 512}
+
+PASSED                      [ 41%]
+PASSED                     [ 50%]
+PASSED                    [ 58%]
+y mid {'Lbs-': 2970.43, 'Acc+': 15.57, 'Mpg+': 23.85}
+ div {'Lbs-': 846.84, 'Acc+': 2.76, 'Mpg+': 8.34}
+
+x mid {'Clndrs': 5.46, 'Volume': 193.43, 'HpX': 104.47, 'Model': 76.02, 'origin': 1}
+ div {'Clndrs': 1.7, 'Volume': 104.27, 'Model': 3.7, 'origin': 1.3273558482394003}
+ 
+PASSED                    [ 66%]
+PASSED                   [ 75%]
+0 0 [8, 360, 215, 4615, 14, 70, 1, 10]
+0 0.0 [8, 360, 215, 4615, 14, 70, 1, 10]
+50 0.2 [8, 318, 150, 3399, 11, 73, 1, 20]
+100 0.38 [6, 225, 105, 3121, 16.5, 73, 1, 20]
+150 0.46 [6, 250, 78, 3574, 21, 76, 1, 20]
+200 0.62 [4, 151, 85, 2855, 17.6, 78, 1, 20]
+250 0.71 [4, 113, 95, 2278, 15.5, 72, 3, 20]
+300 0.75 [4, 79, 70, 2074, 19.5, 71, 2, 30]
+350 0.81 [4, 119, 100, 2615, 14.8, 81, 3, 30]
+
+PASSED                     [ 83%]
+199 199 398
+[4, 89, 71, 1925, 14, 79, 2, 30] 0.6497890239311241
+[4, 140, 88, 2720, 15.4, 78, 1, 30]
+[8, 318, 135, 3830, 15.2, 79, 1, 20]
+
+PASSED                  [ 91%]
+
+398  {'Lbs-': 2970.4, 'Acc+': 15.6, 'Mpg+': 23.8}
+| 199  
+| | 99  
+| | | 49  
+| | | | 24  {'Lbs-': 3866.7, 'Acc+': 14.2, 'Mpg+': 19.2}
+| | | | 25  {'Lbs-': 4257.8, 'Acc+': 13.4, 'Mpg+': 16.8}
+| | | 50  
+| | | | 25  {'Lbs-': 4099.2, 'Acc+': 12.9, 'Mpg+': 12.0}
+| | | | 25  {'Lbs-': 4161.7, 'Acc+': 11.6, 'Mpg+': 13.2}
+| | 100  
+| | | 50  
+| | | | 25  {'Lbs-': 3534.2, 'Acc+': 16.0, 'Mpg+': 18.8}
+| | | | 25  {'Lbs-': 3062.9, 'Acc+': 16.1, 'Mpg+': 20.0}
+| | | 50  
+| | | | 25  {'Lbs-': 3203.1, 'Acc+': 16.3, 'Mpg+': 21.6}
+| | | | 25  {'Lbs-': 2800.1, 'Acc+': 16.2, 'Mpg+': 26.8}
+| 199  
+| | 99  
+| | | 49  
+| | | | 24  {'Lbs-': 2260.8, 'Acc+': 17.0, 'Mpg+': 32.9}
+| | | | 25  {'Lbs-': 2361.4, 'Acc+': 17.5, 'Mpg+': 34.0}
+| | | 50  
+| | | | 25  {'Lbs-': 2687.7, 'Acc+': 15.4, 'Mpg+': 24.4}
+| | | | 25  {'Lbs-': 2099.2, 'Acc+': 16.6, 'Mpg+': 30.0}
+| | 100  
+| | | 50  
+| | | | 25  {'Lbs-': 2177.6, 'Acc+': 17.0, 'Mpg+': 30.0}
+| | | | 25  {'Lbs-': 2324.8, 'Acc+': 16.2, 'Mpg+': 30.8}
+| | | 50  
+| | | | 25  {'Lbs-': 2434.9, 'Acc+': 16.2, 'Mpg+': 26.0}
+| | | | 25  {'Lbs-': 2202.1, 'Acc+': 16.5, 'Mpg+': 25.2}
+
+PASSED                 [100%]
+398  {'Lbs-': 2970.4, 'Acc+': 15.6, 'Mpg+': 23.8}
+| 199  
+| | 99  
+| | | 50  
+| | | | 25  {'Lbs-': 2305.2, 'Acc+': 16.2, 'Mpg+': 32.4}
