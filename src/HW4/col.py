@@ -25,7 +25,7 @@ class COL:
                 column = SYM(names.index(column_name), column_name)
 
             if column_name[-1] != ':':
-                if '!' in column_name or '+' in column_name or '-' in column_name:
+                if '!' in column_name or '+' in column_name :
                     self.y.append(column)
                 else:
                     self.x.append(column)
