@@ -165,6 +165,13 @@ def cosine(a,b,c):
         print('x2', w2)
     return w2, y
 
+def transpose(t):
+    tt=[]
+    for i in range(len(t[1])):
+        tt.append([])
+        for j in range(len(t)):
+            tt[i].append(t[j][i])
+    return tt
 
 def show(node, what, cols, n_places, lvl=0):
     """
