@@ -215,4 +215,7 @@ def repRows(t, DATA, rows):
     for n, row in enumerate(rows):
         if n == 0:
             row.append('thingX')
+        else:
+            u = t['rows'][- n]
+            row.append(u[len(u) - 1])    
     return  DATA(rows)
