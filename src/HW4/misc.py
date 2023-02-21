@@ -206,3 +206,11 @@ def repCols(cols, DATA):
     first_col.append('thingX')
     cols.insert(0, first_col)
     return DATA(cols)
+
+def repRows(t, DATA, rows):
+    rows = deepcopy(rows)
+    for j, s in enumerate(rows[-1]):
+        rows[0][j] = rows[0][j] + ":" + s
+    rows.pop()
+    
+    return  DATA(rows)
