@@ -1,9 +1,9 @@
-import sys, re
+import sys, re, copy
 from numerics import *
 from config import *
 from operator import itemgetter
 import os
-
+import data
 
 def csv(fileName, fun):
     """
@@ -191,3 +191,18 @@ def repPlace(data):
     print('')
     for y in range(1,maxy+1):
         print(' '.join(g[y].values()))
+        
+def deepcopy(t):
+    return copy.deepcopy(t)
+
+def repCols(cols, DATA):
+    cols = deepcopy(cols)
+    for col in cols:
+        col[len(col) - 1] = col[0] + ":" + col[len(col) - 1]
+        for j in range(1, len(col)):
+            col[j-1] = col[j]
+        col.pop()
+    first_col = ['Num' + str(k+1) for k in range(len(cols[1])-1)]
+    first_col.append('thingX')
+    cols.insert(0, first_col)
+    return DATA(cols)
