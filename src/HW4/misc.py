@@ -160,6 +160,24 @@ def many(iterable, n):
         u.append(any(iterable))
     return u
 
+def cosine(a,b,c):
+    d = 1 if c == 0 else 2*c
+    w1 = (a**2 + c**2 - b**2) / d
+    w2 = max(0, min(1, w1))
+    y  = abs((a**2 - w2**2))**.5
+    if isinstance(y, complex):
+        print('a', a)
+        print('x1', w1)
+        print('x2', w2)
+    return w2, y
+
+def transpose(t):
+    tt=[]
+    for i in range(len(t[1])):
+        tt.append([])
+        for j in range(len(t)):
+            tt[i].append(t[j][i])
+    return tt
 
 def show(node, what, cols, n_places, lvl=0):
     """
