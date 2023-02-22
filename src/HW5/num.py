@@ -18,6 +18,7 @@ class NUM:
         self.count, self.mu, self.m2 = 0, 0, 0
         self.lo, self.hi = math.inf, -math.inf
         self.w = -1 if "-" in self.txt else 1
+        self.has = {}
 
 
     def add(self, n):
