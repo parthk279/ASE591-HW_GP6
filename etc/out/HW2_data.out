@@ -1,0 +1,17 @@
+main.py::test_rand <- src\HW2\test_all_HW2.py PASSED                     [ 14%]
+main.py::test_sym <- src\HW2\test_all_HW2.py PASSED                      [ 28%]
+main.py::test_num <- src\HW2\test_all_HW2.py PASSED                      [ 42%]
+main.py::test_the <- src\HW2\test_all_HW2.py PASSED                      [ 57%]
+{'dump': False, 'go': None, 'seed': 937162211, 'file': '../../etc/data/auto93.csv'}
+
+main.py::test_csv <- src\HW2\test_all_HW2.py PASSED                      [ 71%]
+main.py::test_data <- src\HW2\test_all_HW2.py PASSED                     [ 85%]
+main.py::test_stats <- src\HW2\test_all_HW2.py PASSED                    [100%]
+
+y mid {'Lbs-': 2970.43, 'Acc+': 15.57, 'Mpg+': 23.85}
+ div {'Lbs-': 846.84, 'Acc+': 2.76, 'Mpg+': 8.34}
+
+x mid {'Clndrs': 5.46, 'Volume': 193.43, 'HpX': 104.47, 'Model': 76.02, 'origin': 1}
+ div {'Clndrs': 1.7, 'Volume': 104.27, 'Model': 3.7,  'origin': 1.3273558482394003}
+ 
+ 
