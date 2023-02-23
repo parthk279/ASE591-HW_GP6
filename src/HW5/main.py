@@ -33,4 +33,8 @@ if __name__ == "__main__":
     eg("csv", "testing CSV Function", test_csv)
     eg("data", "testing DATA for reading csv", test_data)
     eg("stats", "returning statistics from DATA", test_stats)
+    eg("dist", 'distance test', test_dist)
+    eg("half", 'divide data in half', test_half)
+    eg("tree", 'make snd show tree of clusters', test_tree)
+    eg("sway", 'optimizing', test_sway)
     main()

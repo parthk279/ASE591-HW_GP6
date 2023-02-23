@@ -114,6 +114,8 @@ def test_half():
     print(A.cells,c)
     print(mid.cells)
     print(B.cells)
+    print("l",l.stats('mid', l.cols.y, 2))
+    print("r",r.stats('mid', r.cols.y, 2))
 
 
 def test_cluster():
@@ -124,3 +126,17 @@ def test_cluster():
 def test_optimize():
     data = DATA(the['file'])
     show(data.sway(),'mid',data.cols.y,1)
+
+def test_sway():
+    data = DATA(the['file'])
+    best,rest = data.sway()
+    print("\nall ", data.stats('mid', data.cols.y, 2))
+    print("    ", data.stats('div', data.cols.y, 2))
+    print("\nbest",best.stats('mid', best.cols.y, 2))
+    print("    ", best.stats('div', best.cols.y, 2))
+    print("\nrest", rest.stats('mid', rest.cols.y, 2))
+    print("    ", rest.stats('div', rest.cols.y, 2))
+
+def test_tree():
+    data = DATA(the['file'])
+    showTree(data.tree(),"mid",data.cols.y,1)
