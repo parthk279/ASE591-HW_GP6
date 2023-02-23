@@ -17,7 +17,7 @@ def eg(key, str, fun):
     help = help + '  -g ' + key + '\t' + str + '\n'
 
 
-def test_rand():
+def test_randFun():
     """
     Function for checking if rand function works or not
     """
@@ -33,7 +33,7 @@ def test_rand():
     return m1 == m2 and .5 == rnd(m1, 1)
 
 
-def test_sym():
+def test_symFun():
     """
     Function for checking if the SYM Class works  and for checking if div/mid functions work
     """
@@ -43,7 +43,7 @@ def test_sym():
     return "a" == sym.mid() and 1.379 == rnd(sym.div())
 
 
-def test_num():
+def test_numFun():
     """
     Function for checking if the NUM class works and if div and mid functions work
     """
@@ -53,14 +53,14 @@ def test_num():
     return 11 / 7 == num.mid() and 0.787 == rnd(num.div())
 
 
-def test_the():
+def test_theFun():
     """
     Function to print the options for the code
     """
     print(the)
 
 
-def test_csv():
+def test_csvFun():
     """
     Function for testing the CSV function
     """
@@ -75,7 +75,7 @@ def test_csv():
     return n == 8 ** 399
 
 
-def test_data():
+def test_dataFun():
     """
     Function for testing the data class
     """
@@ -83,7 +83,7 @@ def test_data():
     return len(data.rows) == 398 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
 
-def test_stats():
+def test_statsFun():
     """
     Function for testing the stats function in the data class
     """

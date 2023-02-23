@@ -4,7 +4,7 @@ __license__ = "MIT"
 
 
 import sys, re, math
-from test_all import *
+from test_all_HW1 import *
 from misc import *
 from config import *
 
@@ -29,8 +29,8 @@ def main():
     sys.exit(fails)
 
 if __name__ == '__main__':
-    eg('the', 'show settings', test_the)
-    eg('rand', 'generate, reset, regenerate same', test_rand)
-    eg('sym', 'check syms', test_sym)
-    eg('num', 'check nums', test_num)
+    eg('the', 'show settings', test_theFun)
+    eg('rand', 'generate, reset, regenerate same', test_randFun)
+    eg('sym', 'check syms', test_symFun)
+    eg('num', 'check nums', test_numFun)
     main()

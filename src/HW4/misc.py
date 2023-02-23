@@ -213,6 +213,14 @@ def repPlace(data):
 def deepcopy(t):
     return copy.deepcopy(t)
 
+def repgrid(sFile, DATA):
+    t = dofile(sFile)
+    rows = repRows(t, DATA, transpose(t['cols']))
+    cols = repCols(t['cols'], DATA)
+    show(rows.cluster(),"mid",rows.cols.all,1)
+    show(cols.cluster(),"mid",cols.cols.all,1)
+    repPlace(rows)
+
 def repCols(cols, DATA):
     cols = deepcopy(cols)
     for col in cols:
