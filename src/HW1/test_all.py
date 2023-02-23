@@ -1,10 +1,8 @@
 from misc import *
 from num import NUM
-from numerics import *
 from sym import SYM
 from config import *
 from main import *
-
 
 def test_rand():
     """

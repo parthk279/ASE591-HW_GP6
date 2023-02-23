@@ -1,6 +1,6 @@
 __author__ = "NCSU Computer Science - CSC591 Spring 2023 Automated Software Engineering Group 6 "
 
-from test_allHW2 import *
+from test_all_HW2 import *
 from misc import *
 from config import *
 
@@ -35,3 +35,4 @@ if __name__ == "__main__":
     eg("csv", "testing CSV Function", test_csv)
     eg("data", "testing DATA for reading csv", test_data)
     eg("stats", "returning statistics from DATA", test_stats)
+    main()

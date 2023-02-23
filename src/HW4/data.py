@@ -103,19 +103,18 @@ class DATA:
                 right.append(tmp['row'])
         return left, right, A, B, mid, c
 
-    def cluster(self, rows=None, min=None, cols=None, above=None):
+    def cluster(self, rows=None, cols=None, above=None):
         """
         Returns rows recursively halved
         """
         rows = rows or self.rows
-        min = min or len(rows) ** the["min"]
         cols = cols or self.cols.x
         node = {'data': self.clone(rows)}
 
-        if len(rows) > 2 * min:
+        if len(rows) >=2:
             left, right, node['A'], node['B'], node["mid"], _ = self.half(rows, cols, above)
-            node['left'] = self.cluster(left, min, cols, node['A'])
-            node['right'] = self.cluster(right, min, cols, node['B'])
+            node['left'] = self.cluster(left, cols, node['A'])
+            node['right'] = self.cluster(right, cols, node['B'])
         return node
 
     def better(self, row1, row2):
@@ -145,3 +144,7 @@ class DATA:
                 left, right, node['A'], node['B'] = right, left, node['B'], node['A']
             node['left'] = self.sway(left, min, cols, node['A'])
         return node
+
+    def furthest(self, row1, rows = None, cols = None):
+        t=self.around(row1,rows,cols)
+        return t[len(t) - 1]

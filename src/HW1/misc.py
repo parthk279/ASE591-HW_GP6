@@ -2,7 +2,6 @@ import sys, re
 from operator import itemgetter
 from config import *
 
-
 def eg(key, str, fun):
     """
         Helps implement the various tests by taking the global option, string sequence and function to be implemented.
@@ -103,6 +102,7 @@ def cli(options : dict):
                     v = args[n + 1]
             options[k] = coerce(v)
         return options
+
 
 
 Seed = 937162211

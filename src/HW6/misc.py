@@ -1,4 +1,5 @@
 import sys, re
+from numerics import *
 from config import *
 from operator import itemgetter
 import os
@@ -78,6 +79,12 @@ def settings(s):
     """
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)", s))
 
+def dofile(sFile):
+    file = open(sFile, 'r', encoding='utf-8')
+    text  = re.findall(r'(?<=return )[^.]*', file.read())[0].replace('{', '[').replace('}',']').replace('=',':').replace('[\n','{\n' ).replace(' ]',' }' ).replace('\'', '"').replace('_', '"_"')
+    file.close()
+    return json.loads(re.sub("(\w+):", r'"\1":', text))
+
 
 def coerce(s):
     """
@@ -130,3 +137,57 @@ def kap(iterable, fun):
         i, index = fun(index, i)
         result[index or len(result)] = i
     return result
+
+
+def push(t, x):
+    t.append(x)
+    return x
+
+
+def any(iterable):
+    """
+    Returns random item from an iterable
+    """
+    return iterable[rint(0, len(iterable) - 1)]
+
+
+def many(iterable, n):
+    """
+    Returns a few items from an iterable
+    """
+    u = []
+    for _ in range(1, n + 1):
+        u.append(any(iterable))
+    return u
+
+
+def show(node, what, cols, n_places, lvl=0):
+    """
+    Prints the tree
+    """
+    if node:
+        print('| ' * lvl + str(len(node['data'].rows)) + '  ', end='')
+        if not node.get('left') or lvl == 0:
+            print(node['data'].stats(node['data'].cols.y, n_places, "mid"))
+        else:
+            print('')
+        show(node.get('left'), what, cols, n_places, lvl + 1)
+        show(node.get('right'), what, cols, n_places, lvl + 1)
+
+def repPlace(data):
+    n,g = 20,{}
+    for i in range(1, n+1):
+        g[i]={}
+        for j in range(1, n+1):
+            g[i][j]=' '
+    maxy = 0
+    print('')
+    for r,row in enumerate(data.rows):
+        c = chr(97+r).upper()
+        print(c, row.cells[-1])
+        x,y= row.x*n//1, row.y*n//1
+        maxy = int(max(maxy,y+1))
+        g[y+1][x+1] = c
+    print('')
+    for y in range(1,maxy+1):
+        print(' '.join(g[y].values()))

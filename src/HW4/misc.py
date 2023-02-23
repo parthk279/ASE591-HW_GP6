@@ -1,8 +1,9 @@
-import sys, re
+import sys, re, copy
+from numerics import *
 from config import *
 from operator import itemgetter
 import os
-
+import data
 
 def csv(fileName, fun):
     """
@@ -78,6 +79,12 @@ def settings(s):
     """
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)", s))
 
+def dofile(sFile):
+    file = open(sFile, 'r', encoding='utf-8')
+    text  = re.findall(r'(?<=return )[^.]*', file.read())[0].replace('{', '[').replace('}',']').replace('=',':').replace('[\n','{\n' ).replace(' ]',' }' ).replace('\'', '"').replace('_', '"_"')
+    file.close()
+    return json.loads(re.sub("(\w+):", r'"\1":', text))
+
 
 def coerce(s):
     """
@@ -130,3 +137,103 @@ def kap(iterable, fun):
         i, index = fun(index, i)
         result[index or len(result)] = i
     return result
+
+
+def push(t, x):
+    t.append(x)
+    return x
+
+
+def any(iterable):
+    """
+    Returns random item from an iterable
+    """
+    return iterable[rint(0, len(iterable) - 1)]
+
+
+def many(iterable, n):
+    """
+    Returns a few items from an iterable
+    """
+    u = []
+    for _ in range(1, n + 1):
+        u.append(any(iterable))
+    return u
+
+def cosine(a,b,c):
+    d = 1 if c == 0 else 2*c
+    w1 = (a**2 + c**2 - b**2) / d
+    w2 = max(0, min(1, w1))
+    y  = abs((a**2 - w2**2))**.5
+    if isinstance(y, complex):
+        print('a', a)
+        print('x1', w1)
+        print('x2', w2)
+    return w2, y
+
+def transpose(t):
+    tt=[]
+    for i in range(len(t[1])):
+        tt.append([])
+        for j in range(len(t)):
+            tt[i].append(t[j][i])
+    return tt
+
+def show(node, what, cols, n_places, lvl=0):
+    """
+    Prints the tree
+    """
+    if node:
+        print('| ' * lvl + str(len(node['data'].rows)) + '  ', end='')
+        if not node.get('left') or lvl == 0:
+            print(node['data'].stats(node['data'].cols.y, n_places, "mid"))
+        else:
+            print('')
+        show(node.get('left'), what, cols, n_places, lvl + 1)
+        show(node.get('right'), what, cols, n_places, lvl + 1)
+
+def repPlace(data):
+    n,g = 20,{}
+    for i in range(1, n+1):
+        g[i]={}
+        for j in range(1, n+1):
+            g[i][j]=' '
+    maxy = 0
+    print('')
+    for r,row in enumerate(data.rows):
+        c = chr(97+r).upper()
+        print(c, row.cells[-1])
+        x,y= row.x*n//1, row.y*n//1
+        maxy = int(max(maxy,y+1))
+        g[y+1][x+1] = c
+    print('')
+    for y in range(1,maxy+1):
+        print(' '.join(g[y].values()))
+        
+def deepcopy(t):
+    return copy.deepcopy(t)
+
+def repCols(cols, DATA):
+    cols = deepcopy(cols)
+    for col in cols:
+        col[len(col) - 1] = col[0] + ":" + col[len(col) - 1]
+        for j in range(1, len(col)):
+            col[j-1] = col[j]
+        col.pop()
+    first_col = ['Num' + str(k+1) for k in range(len(cols[1])-1)]
+    first_col.append('thingX')
+    cols.insert(0, first_col)
+    return DATA(cols)
+
+def repRows(t, DATA, rows):
+    rows = deepcopy(rows)
+    for j, s in enumerate(rows[-1]):
+        rows[0][j] = rows[0][j] + ":" + s
+    rows.pop()
+    for n, row in enumerate(rows):
+        if n == 0:
+            row.append('thingX')
+        else:
+            u = t['rows'][- n]
+            row.append(u[len(u) - 1])    
+    return  DATA(rows)
