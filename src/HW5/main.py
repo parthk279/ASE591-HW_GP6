@@ -1,5 +1,5 @@
 import sys, re, math
-from test_all_HW3 import *
+from test_all_HW5 import *
 from misc import *
 from config import *
 
@@ -26,11 +26,15 @@ def main():
 
 
 if __name__ == "__main__":
-    eg("the", "testng the", test_the)
-    eg("sym", "testing the sym class", test_sym())
-    eg("num", "testing the num class", test_num)
-    eg("rand", "testing Random function", test_rand)
-    eg("csv", "testing CSV Function", test_csv)
-    eg("data", "testing DATA for reading csv", test_data)
-    eg("stats", "returning statistics from DATA", test_stats)
+    eg("the", "testng the", test_theFun)
+    eg("sym", "testing the sym class", test_symFun)
+    eg("num", "testing the num class", test_numFun)
+    eg("rand", "testing Random function", test_randFun)
+    eg("csv", "testing CSV Function", test_csvFun)
+    eg("data", "testing DATA for reading csv", test_dataFun)
+    eg("stats", "returning statistics from DATA", test_statsFun)
+    eg("dist", 'distance test', test_dist)
+    eg("half", 'divide data in half', test_halfFun)
+    eg("tree", 'make snd show tree of clusters', test_treeFun)
+    eg("sway", 'optimizing', test_swayFun)
     main()

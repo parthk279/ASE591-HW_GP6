@@ -16,7 +16,7 @@ def eg(key, str, fun):
     help = help + '  -g ' + key + '\t' + str + '\n'
 
 
-def test_rand():
+def test_randFun():
     """
     Function for checking if rand function works or not
     """
@@ -32,7 +32,7 @@ def test_rand():
     return m1 == m2 and .5 == rnd(m1, 1)
 
 
-def test_sym():
+def test_symFun():
     """
     Function for checking if the SYM Class works  and for checking if div/mid functions work
     """
@@ -42,7 +42,7 @@ def test_sym():
     return "a" == sym.mid() and 1.379 == rnd(sym.div())
 
 
-def test_num():
+def test_numFun():
     """
     Function for checking if the NUM class works and if div and mid functions work
     """
@@ -52,14 +52,14 @@ def test_num():
     return 11 / 7 == num.mid() and 0.787 == rnd(num.div())
 
 
-def test_the():
+def test_theFun():
     """
     Function to print the options for the code
     """
     print(the)
 
 
-def test_csv():
+def test_csvFun():
     """
     Function for testing the CSV function
     """
@@ -73,7 +73,7 @@ def test_csv():
     return n == 8 ** 399
 
 
-def test_data():
+def test_dataFun():
     """
     Function for testing the data class
     """
@@ -81,7 +81,7 @@ def test_data():
     return len(data.rows) == 398 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
 
-def test_stats():
+def test_statsFun():
     """
     Function for testing the stats function in the data class
     """
@@ -93,13 +93,13 @@ def test_stats():
     return True
 
 
-def test_clone():
+def test_cloneFun():
     data1 = DATA(the['file'])
     data2 = data1.clone(data1.rows)
     return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
 
 
-def test_around():
+def test_aroundFun():
     data = DATA(the['file'])
     print(0, 0, data.rows[1].cells)
     for n, t in enumerate(data.around(data.rows[1])):
@@ -107,20 +107,36 @@ def test_around():
             print(n, rnd(t['dist'], 2), t['row'].cells)
 
 
-def test_half():
+def test_halfFun():
     data = DATA(the['file'])
     left,right,A,B,mid,c = data.half()
     print(len(left),len(right),len(data.rows))
     print(A.cells,c)
     print(mid.cells)
     print(B.cells)
+    print("l",l.stats('mid', l.cols.y, 2))
+    print("r",r.stats('mid', r.cols.y, 2))
 
 
-def test_cluster():
+def test_clusterFun():
     data = DATA(the['file'])
     show(data.cluster(),"mid",data.cols.y,1)
 
 
-def test_optimize():
+def test_optimizeFun():
     data = DATA(the['file'])
     show(data.sway(),'mid',data.cols.y,1)
+
+def test_swayFun():
+    data = DATA(the['file'])
+    best,rest = data.sway()
+    print("\nall ", data.stats('mid', data.cols.y, 2))
+    print("    ", data.stats('div', data.cols.y, 2))
+    print("\nbest",best.stats('mid', best.cols.y, 2))
+    print("    ", best.stats('div', best.cols.y, 2))
+    print("\nrest", rest.stats('mid', rest.cols.y, 2))
+    print("    ", rest.stats('div', rest.cols.y, 2))
+
+def test_treeFun():
+    data = DATA(the['file'])
+    showTree(data.tree(),"mid",data.cols.y,1)

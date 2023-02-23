@@ -6,7 +6,7 @@ from main import *
 
 
 
-def test_rand():
+def test_randFun():
     n1, n2 = NUM(), NUM()
     global Seed
     Seed = the['seed']
@@ -18,18 +18,18 @@ def test_rand():
     m1,m2 = rnd(n1.mid(),1), rnd(n2.mid(),1)
     return m1==m2 and .5 == rnd(m1,1)
 
-def test_sym():
+def test_symFun():
     sym = SYM()
     for x in ["a","a","a","a","b","b","c"]:
         sym.add(x)
     return "a" == sym.mid() and 1.379 == rnd(sym.div())
 
-def test_num():
+def test_numFun():
     num = NUM()
     for x in [1,1,1,1,2,2,3]:
         num.add(x)
     return 11/7 == num.mid() and 0.787 == rnd(num.div())
 
-def test_the():
+def test_theFun():
   print(str(the))
 

@@ -130,17 +130,43 @@ class DATA:
             s2 = s2 - math.exp(col.w * (y - x) / len(ys))
         return s1 / len(ys) < s2 / len(ys)
 
-    def sway(self, rows=None, min=None, cols=None, above=None):
-        """
-        Returns the better half recursively
-        """
-        rows = rows or self.rows
-        min = min or len(rows) ** the['min']
-        cols = cols or self.cols.x
+    def sway(self):
+        data = self
+
+        def worker(rows, worse, above=None):
+            if len(rows) <= len(data.rows) ** the['min']:
+                return rows, many(worse, the['rest'] * len(rows))
+            else:
+                left, right, a, b, _, _ = self.half(rows, None, above)
+
+                if self.better(b, a):
+                    left, right, a, b = right, left, b, a
+
+                for row in right:
+                    worse.append(row)
+
+                return worker(left, worse, a)
+
+        best, rest = worker(data.rows, [])
+        return self.clone(best), self.clone(rest)
+
+
+    def tree(self, rows=None, min=None, cols=None, above=None):
+        if rows is None:
+            rows = self.rows
+        if min is None:
+            min = len(rows) ** the['min']
+        if cols is None:
+            cols = self.cols.x
+
         node = {'data': self.clone(rows)}
-        if len(rows) > 2 * min:
-            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows, cols, above)
-            if self.better(node['B'], node['A']):
-                left, right, node['A'], node['B'] = right, left, node['B'], node['A']
-            node['left'] = self.sway(left, min, cols, node['A'])
+
+        if len(rows) >= 2 * min:
+            left, right, a, b, mid, _ = self.half(rows, cols, above)
+            node['A'] = a
+            node['B'] = b
+            node['mid'] = mid
+            node['left'] = self.tree(left, min, cols, a)
+            node['right'] = self.tree(right, min, cols, b)
+
         return node

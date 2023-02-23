@@ -191,3 +191,77 @@ def repPlace(data):
     print('')
     for y in range(1,maxy+1):
         print(' '.join(g[y].values()))
+
+# Define a function that merges two columns of data and returns the result
+def merge(col1, col2):
+    
+    # Make a deep copy of the first column
+    new = deepcopy(col1)
+    
+    # If the first column is of type SYM, add all the values from the second column
+    # to the new column
+    if isinstance(col1, SYM):
+        for n in col2.has:
+            new.add(n)
+    # If the first column is of type NUM, add all the values from the second column
+    # to the new column and update the range of values
+    else:
+        for n in col2.has:
+            new.add(new, n)
+        new.lo = min(col1.lo, col2.lo)
+        new.hi = max(col1.hi, col2.hi)
+    
+    # Return the new merged column
+    return new
+
+
+def RANGE(at,txt,lo,hi=None):
+    return {'at':at,'txt':txt,'lo':lo,'hi':lo or hi or lo,'y':SYM()}
+
+def mergeAny(ranges):
+    # Helper function to remove gaps between ranges
+    def noGaps(ranges):
+        for i in range(1, len(ranges)):
+            ranges[i]['lo'] = ranges[i-1]['hi']
+        ranges[0]['lo'] = float("-inf")
+        ranges[-1]['hi'] = float("inf")
+        return ranges
+
+    # Create a new list of merged ranges
+    merged_ranges = []
+    i = 0
+    while i < len(ranges):
+        # Get the current range and its right neighbor (if any)
+        current_range = ranges[i]
+        right_neighbor = None if i == len(ranges)-1 else ranges[i+1]
+
+        # Merge the current range with its right neighbor if they overlap
+        if right_neighbor is not None:
+            merged_y = merge2(current_range['y'], right_neighbor['y'])
+            if merged_y:
+                current_range['hi'] = right_neighbor['hi']
+                current_range['y'] = merged_y
+                i += 1
+
+        # Append the current range (possibly merged) to the list of merged ranges
+        merged_ranges.append(current_range)
+        i += 1
+
+    # Return the merged ranges with no gaps
+    if len(ranges) == len(merged_ranges):
+        return noGaps(ranges)
+    else:
+        return mergeAny(merged_ranges)
+
+# Define a function that merges two columns of data and returns the result
+def merge2(col1, col2):
+    
+    # Merge the two columns into a new column
+    new = merge(col1, col2)
+    
+    # Check if the variance of the new column is less than or equal to
+    # the weighted average of the variances of the original columns
+    if new.div() <= (col1.div() * col1.n + col2.div() * col2.n) / new.n:
+        
+        # If the condition is true, return the new merged column
+        return new
