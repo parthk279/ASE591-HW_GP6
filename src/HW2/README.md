@@ -1,4 +1,4 @@
-# Lua to Python Decoder Homework 1
+# Lua to Python Decoder Homework 2
 This repo is the submission for the second homework for the CSC591 Special Topics in Computer Science : Automated Software
 engineering course. Within this repo a team of 4 aim to implement the latest and best software 
 engineering practices to convert certain code from Lua to Python. Each Homework submissions
