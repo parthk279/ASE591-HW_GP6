@@ -1,12 +1,22 @@
-import sys, re, math
+import math
+
+
 class SYM:
+    """
+        The SYM class is used to describe a sequence of symbols. Implements various functions for returning the
+        mode and entropy of the class object.
+    """
+
     def __init__(self):
         """
-        Constructor for SYM Class
-        n : Count of symbols
-        has : Dictionary with count
-        most : Symbol with most number of entries
-        mode : Number of entries of "most" symbol
+            The constructor for SYM Class.
+
+            Data Members
+            ------------
+                n : int : Count of symbols.
+                has : dict :  Dictionary with count.
+                most : str : Symbol with the highest occurrences in the class object.
+                mode : int : Number of entries of "most" symbol.
         """
         self.n = 0
         self.has = {}
@@ -15,8 +25,12 @@ class SYM:
 
     def add(self, newSym):
         """
-        Takes a string symbol as argument and adds it to the SYM's "has" counter. If
-        the new symbol is the one with most entries "mode" and "most" are modified
+            Takes in a  string symbol as argument and adds it to the SYM class object's entries. If
+            the new symbol is the one with most entries "mode" and "most" are modified.
+
+            Parameters
+            ----------
+            newSym : str : The string symbol that must be added and stored in the SYM class object
         """
         if not newSym == "?":
             self.n = self.n + 1
@@ -27,15 +41,23 @@ class SYM:
 
     def mid(self):
         """
-        Returns mode
+            Returns the number of occurrences of the symbol with the highest occurrences.
+
+            Returns
+            -------
+            mode : int : The number of occurrences of the symbol with the highest occurrences.
         """
         return self.mode
 
     def div(self):
         """
-        Returns the Shannon Entropy of the Object's counter "has"
+            Calculates and returns the Shannon Entropy of the SYM class object's. Shannon Entropy calculated using
+            the following algorithm - https://onestopdataanalysis.com/shannon-entropy/
+
+            Returns
+            -------
+            entropy : The Shannon Entropy of all the different symbols in the SYM class object.
         """
-        entropy=0
         freqList = [i / sum(self.has.values()) for i in self.has.values()]
         entropies = [i * math.log(i, 2) for i in freqList]
         entropy = -sum(entropies)
