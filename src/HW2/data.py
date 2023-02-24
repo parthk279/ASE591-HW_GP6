@@ -4,10 +4,17 @@ from col import COL
 
 
 class DATA:
+    """
+        The DATA class is used to act as a container for the information in ROW type objects but is summarized in the
+        form of COL type objects.
+    """
     def __init__(self, src):
         """
-        Initializing function for data class object.
-        A container for self.rows to be summarized in self.cols
+            Constructor for creating a DATA type object
+
+            Parameters
+            ----------
+            src : str : The path to the File whose data needs to be added into the DATA object
         """
         self.rows = []
         self.cols = None
@@ -19,7 +26,11 @@ class DATA:
 
     def add(self, t):
         """
-        Add a new row and update the column headers
+            Function for adding a new ROW type object and appending the column headers of the DATA object
+
+            Parameters
+            ----------
+            t : list : The data that needs to be appended as a new row or for updating the column headers.
         """
         if self.cols:
             if isinstance(t, list):
@@ -29,9 +40,13 @@ class DATA:
         else:
             self.cols = COL(t)
 
-    def clone(self, init, data):
+    def clone(self):
         """
-        For cloning the DATA object with the same structure as init
+            Creates and Returns another data object that is a copy of the current DATA object.
+
+            Returns
+            -------
+            data : DATA : A clone of the self DATA object
         """
         data = DATA(self.cols.names)
         for x in self.rows or []:
@@ -40,11 +55,16 @@ class DATA:
 
     def stats(self, cols=None, nPlaces=None, what=None,):
         """
-        Function for returning a certain attribute or certain stats 
-        for a column in data
+            Returns either the 'div' stats or the 'mid' stats based on the 'what' argument passed.
+
+            Parameters
+            ----------
+            cols : list : The sequence object from which the datas will be taken from - self.cols.y
+            nPlaces : int : The number of places that the stats must be rounded off to.
+            what : str : The argument passed which decided which stat must be returned ("mid" or "div")
         """
 
-        def fun(k, col):
+        def fun(_, col):
             if what == "div":
                 value = col.div()
             else:
