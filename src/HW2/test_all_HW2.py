@@ -10,7 +10,7 @@ from main import *
     
 def eg(key, str, fun):
     """
-    Example function for running the test cases. Takes in key, string and function that needs to be tested
+        Example function for running the test cases. Takes in key, string and function that needs to be tested
     """
     egs[key] = fun
     global help

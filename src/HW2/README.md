@@ -9,10 +9,16 @@ We will now delve into each file and understand the functions implemented in eac
 
 
 ## `col.py`
-This script includes the implementation of the `COL` class. The `COL` class is used to 
+This script includes the implementation of the `COL` class. The `COL` class is used for storing and dealing with NUM 
+and SYM type objects. 
+
 ## `config.py`
 This file contains some important environment variables required to implement the 
 functionality of all the classes in the homework.
+
+## `data.py`
+The script for implementing `DATA` class. The `DATA` class acts as a container for the information in 
+ROW type objects but is summarized in the form of COL type objects.
 
 ## `main.py`
 The main file is contains all the code to run the test functions. It coerces through 
@@ -49,3 +55,7 @@ for homework 1. The various functions are
 2. test_rand : The test function for testing the environment variable SEED.
 3. test_sym : Test function for testing the SYM class.
 4. test_num : Test function for the NUM class. 
+5. test_stats : Testing function for checking if the data.stats() function is working properly. 
+Calculates the mid and the div for the two data from the csv file
+6. test_data : Testing function for checking if the data class is working or not
+7. test_csv : Testing if the csv function is drawing the input from the csv file
