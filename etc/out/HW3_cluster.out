@@ -14,13 +14,11 @@ main.py::test_half <- src\HW3\test_all_HW3.py
 main.py::test_cluster <- src\HW3\test_all_HW3.py 
 main.py::test_optimize <- src\HW3\test_all_HW3.py 
 
-======================== 12 passed, 1 warning in 0.97s ========================
+======================== 12 passed, 1 warning in 0.52s ========================
 
 Process finished with exit code 0
 PASSED                     [  8%]
-
 PASSED                      [ 16%]
-
 PASSED                      [ 25%]
 
 PASSED                      [ 33%]
@@ -30,15 +28,15 @@ PASSED                      [ 41%]
 
 PASSED                     [ 50%]
 
+PASSED                     [ 50%]
 PASSED                    [ 58%]
 y mid {'Lbs-': 2970.43, 'Acc+': 15.57, 'Mpg+': 23.85}
  div {'Lbs-': 846.84, 'Acc+': 2.76, 'Mpg+': 8.34}
 
 x mid {'Clndrs': 5.46, 'Volume': 193.43, 'HpX': 104.47, 'Model': 76.02, 'origin': 1}
- div {'Clndrs': 1.7, 'Volume': 104.27, 'Model': 3.7,  'origin': 1.3273558482394003}
+ div {'Clndrs': 1.7, 'Volume': 104.27, 'Model': 3.7, 'origin': 1.3273558482394003}
  
 PASSED                    [ 66%]
-
 PASSED                   [ 75%]
 0 0 [8, 360, 215, 4615, 14, 70, 1, 10]
 0 0.0 [8, 360, 215, 4615, 14, 70, 1, 10]
@@ -56,6 +54,8 @@ PASSED                     [ 83%]
 [4, 89, 71, 1925, 14, 79, 2, 30] 0.6497890239311241
 [4, 140, 88, 2720, 15.4, 78, 1, 30]
 [8, 318, 135, 3830, 15.2, 79, 1, 20]
+
+PASSED                  [ 91%]
 
 
 PASSED                  [ 91%]

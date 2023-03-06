@@ -40,7 +40,7 @@ def main():
     sys.exit(fails)
 if __name__ == "__main__":
     eg("the", "testng the", test_the)
-    eg("sym", "testing the sym class", test_sym())
+    eg("sym", "testing the sym class", test_sym)
     eg("num", "testing the num class", test_num)
     eg("rand", "testing Random function", test_rand)
     eg("csv", "testing CSV Function", test_csv)

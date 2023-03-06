@@ -9,7 +9,7 @@ from main import *
 
 def eg(key, str, fun):
     """
-    Example function for running the test cases. Takes in key, string and function that needs to be tested
+        Example function for running the test cases. Takes in key, string and function that needs to be tested
     """
     egs[key] = fun
     global help
@@ -18,7 +18,11 @@ def eg(key, str, fun):
 
 def test_rand():
     """
-    Function for checking if rand function works or not
+       The test function for testing the environment variable SEED.
+
+       Returns
+       -------
+       BOOL : Checks if the two means are same for the same seed and if the rounded off value o the means are correct.
     """
     n1, n2 = NUM(), NUM()
     global Seed
@@ -34,7 +38,11 @@ def test_rand():
 
 def test_sym():
     """
-    Function for checking if the SYM Class works  and for checking if div/mid functions work
+        Test function for testing the SYM class.
+
+        Returns
+        -------
+        BOOL : Boolean value to check if the mode is "a" and if the Shannon entropy is equal to 1.379
     """
     sym = SYM()
     for x in ["a", "a", "a", "a", "b", "b", "c"]:
@@ -44,7 +52,12 @@ def test_sym():
 
 def test_num():
     """
-    Function for checking if the NUM class works and if div and mid functions work
+        Test function for the NUM class
+
+        Returns
+        -------
+        BOOL : Boolean value to check if the mean of the numbers in the class is equal to 11/7 and if the standard
+                deviation of the numbers is equal to 0.787.
     """
     num = NUM()
     for x in [1, 1, 1, 1, 2, 2, 3]:
@@ -54,15 +67,25 @@ def test_num():
 
 def test_the():
     """
-    Function to print the options for the code
+        The test function for loading all the environment variables.
+
+        Returns
+        -------
+        dict : The dictionary containing all the environment variables
+
     """
-    print(the)
+    print(str(the))
 
 
 def test_csv():
     """
-    Function for testing the CSV function
+        Testing if the csv function is drawing the input from the csv file
+
+        Returns
+        -------
+        BOOl : checks if the number of characters/length of the file is equal to 8**399
     """
+    global csv
     n = 0
 
     def f(t):
@@ -75,7 +98,11 @@ def test_csv():
 
 def test_data():
     """
-    Function for testing the data class
+        Testing function for checking if the data class is working or not
+
+        Returns
+        --------
+        bool : Checks if DATA object has the correct number of rows, weights lengths, and locations for the columns
     """
     data = DATA(the["file"])
     return len(data.rows) == 398 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
@@ -83,7 +110,8 @@ def test_data():
 
 def test_stats():
     """
-    Function for testing the stats function in the data class
+        Testing function for checking if the data.stats() function is working properly. Calculates the mid and
+        the div for the two data from the csv file.
     """
     data = DATA(the["file"])
 
@@ -94,12 +122,19 @@ def test_stats():
 
 
 def test_clone():
+    """
+        Testing if DATA.clone() works
+    """
     data1 = DATA(the['file'])
     data2 = data1.clone(data1.rows)
-    return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
+    return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == \
+           data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
 
 
 def test_around():
+    """
+        Testing DATA.around()
+    """
     data = DATA(the['file'])
     print(0, 0, data.rows[1].cells)
     for n, t in enumerate(data.around(data.rows[1])):
@@ -108,19 +143,22 @@ def test_around():
 
 
 def test_half():
+    """
+        Testing DATA.half()
+    """
     data = DATA(the['file'])
-    left,right,A,B,mid,c = data.half()
-    print(len(left),len(right),len(data.rows))
-    print(A.cells,c)
+    left, right, A, B, mid, c = data.half()
+    print(len(left), len(right), len(data.rows))
+    print(A.cells, c)
     print(mid.cells)
     print(B.cells)
 
 
 def test_cluster():
     data = DATA(the['file'])
-    show(data.cluster(),"mid",data.cols.y,1)
+    show(data.cluster(), "mid", data.cols.y, 1)
 
 
 def test_optimize():
     data = DATA(the['file'])
-    show(data.sway(),'mid',data.cols.y,1)
+    show(data.sway(), 'mid', data.cols.y, 1)

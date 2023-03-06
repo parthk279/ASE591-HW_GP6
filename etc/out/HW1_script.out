@@ -1,7 +1,16 @@
 $ python3 script.py -g all
 
-{'dump': False, 'go': 'all', 'help': False, 'seed': 937162211}
+============================= test session starts =============================
+collecting ... collected 4 items
+
+main.py::test_rand <- src\HW1\test_all.py PASSED                         [ 25%]
+main.py::test_sym <- src\HW1\test_all.py PASSED                          [ 50%]
+main.py::test_num <- src\HW1\test_all.py PASSED                          [ 75%]
+main.py::test_the <- src\HW1\test_all.py PASSED                          [100%]{'dump': False, 'go': None, 'seed': 937162211}
+
+
 ✅ pass: the
 ✅ pass: rand
 ✅ pass: sym
 ✅ pass: num
+======================== 4 passed, 1 warning in 0.05s =========================
