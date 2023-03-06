@@ -1,6 +1,14 @@
 class ROW:
-  def __init__(self, t):
     """
-    Stores one data record in one cell
+      Stores a single record for the row type object.
     """
-    self.cells = t
+
+    def __init__(self, t):
+        """
+          The constructor for the row class
+
+          Parameters
+          ----------
+            t : list : The data to be read into and added to the ROW type object
+        """
+        self.cells = t

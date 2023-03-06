@@ -1,5 +1,6 @@
 Seed = 937162211
 
+
 def rand(lo=0, hi=1):
     """
         This is a rudimentary implementation of the random function from the random module in Python 3.x

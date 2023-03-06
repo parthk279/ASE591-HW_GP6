@@ -46,7 +46,18 @@ def fmt(*strings):
             sys.stdout.write(s)
 
 
-def settings(s: str):
+def oo(t):
+    """
+    Emulating Print function and returning sorted value
+    """
+    print(t)
+    if not isinstance(t, dict):
+        return t
+    else:
+        return dict(sorted(t.items(), key=itemgetter(1)))
+
+
+def settings(s : str):
     """
         Coerces the global variables for the options. implements regular expression (regex) to refer to a sequence
         of characters that specifies a search patter in text. Used to find or find and replace operations for the
@@ -80,6 +91,8 @@ def coerce(s: str):
         return float(s)
     elif s.isdigit():
         return int(s)
+    elif "." in s and s.replace(".", "").isdigit():
+        return float(s)
     else:
         return s
 
