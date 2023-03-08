@@ -23,16 +23,18 @@ class COL:
                 column = NUM(names.index(column_name), column_name)
             else:
                 column = SYM(names.index(column_name), column_name)
+            self.all.append(column)
 
-            if column_name[-1] != ':':
-                if '!' in column_name or '+' in column_name :
+
+            if not column_name[-1] == 'X':
+                if '-' in column_name or '+' in column_name or '!' in column_name:
                     self.y.append(column)
                 else:
                     self.x.append(column)
 
-            if column_name[-1] == '!':
-                self.klass = column
-            self.all.append(column)
+                if column_name[-1] == '!':
+                    self.klass = column
+            
 
     def __str__(self):
         """

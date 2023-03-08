@@ -1,4 +1,8 @@
+import copy
+import json
+import math
 import sys, re
+from HW5.sym import SYM
 from numerics import *
 from config import *
 from operator import itemgetter
@@ -66,12 +70,10 @@ def oo(t):
     """
     Emulating Print function and returning sorted value
     """
-    print(t)
-    if not isinstance(t, dict):
-        return t
-    else:
-        return dict(sorted(t.items(), key=itemgetter(1)))
-
+    td = t.__dict__
+    td['a'] = t.__class__.__name__
+    td['id'] = id(t)
+    print(dict(sorted(td.items())))
 
 def settings(s):
     """
@@ -138,7 +140,9 @@ def kap(iterable, fun):
         result[index or len(result)] = i
     return result
 
-
+def deepcopy(t):
+    return copy.deepcopy(t)
+    
 def push(t, x):
     t.append(x)
     return x
@@ -191,3 +195,42 @@ def repPlace(data):
     print('')
     for y in range(1,maxy+1):
         print(' '.join(g[y].values()))
+
+def extend(range,n,s):
+    range['hi'] = max(n, range['hi'])
+    range['lo'] = min(n, range['lo'])
+    range['y'].add(s)
+
+def value(has,nB = None, nR = None, sGoal = None):
+    b,r = 0,0
+    sGoal,nB,nR = sGoal or True, nB or 1, nR or 1
+    for x,n in has.items():
+        if x==sGoal:
+            b = b + n
+        else:
+            r = r + n
+    b,r = b/(nB+1/float("inf")), r/(nR+1/float("inf"))
+    return (b**2/(b+r))
+
+def bins(cols,rowss):
+    out = []
+    for col in cols:
+        ranges = {}
+        for y,rows in rowss.items():
+            for row in rows:
+                x = row.cells[col.at]
+                if x != "?":
+                    k = int(bin(col,x))
+                    if not k in ranges:
+                        ranges[k] = RANGE(col.at,col.txt,x)
+                    extend(ranges[k], x, y)
+        ranges = list(dict(sorted(ranges.items())).values())
+        r = ranges if isinstance(col,SYM) else mergeAny(ranges)
+        out.append(r)
+    return out
+
+def bin(col,x):
+    if x=="?" or isinstance(col, SYM):
+        return x
+    tmp = (col.hi - col.lo)/(the['bins'] - 1)
+    return  1 if col.hi == col.lo else math.floor(x/tmp + .5)*tmp

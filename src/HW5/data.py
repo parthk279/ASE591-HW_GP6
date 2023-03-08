@@ -84,15 +84,16 @@ class DATA:
         """
         Divides the data with 2 points
         """
+        rows = rows or self.rows
+        some = many(rows,the['Halves'])
+        A    = above or any(some)
+        B    = self.around(A,some)[int(the['Far'] * len(rows))//1]['row']
+        
+        left, right = [], []
 
         def dist(row1,row2):
             return self.dist(row1,row2,cols)
-        rows = rows or self.rows
-        some = many(rows,the['Sample'])
-        A    = above or any(some)
-        B    = self.around(A,some)[int(the['Far'] * len(rows))//1]['row']
         c    = dist(A,B)
-        left, right = [], []
         def project(row):
             return {'row' : row, 'dist' : cosine(dist(row,A), dist(row,B), c)}
         for n,tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
@@ -130,10 +131,12 @@ class DATA:
             s2 = s2 - math.exp(col.w * (y - x) / len(ys))
         return s1 / len(ys) < s2 / len(ys)
 
-    def sway(self, rows=None, min=None, cols=None, above=None):
+    def sway(self, rows=None, min=None, cols=None, above=0):
         """
         Returns the better half recursively
         """
+        data=self
+
         rows = rows or self.rows
         min = min or len(rows) ** the['min']
         cols = cols or self.cols.x
