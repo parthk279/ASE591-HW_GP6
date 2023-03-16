@@ -67,7 +67,7 @@ class DATA:
         def fun(_, col):
             if what == "div":
                 value = col.div()
-            else:
+            if what == "mid":
                 value = col.mid()
 
             return col.rnd(value, nPlaces), col.txt

@@ -1,4 +1,4 @@
-import sys, re
+import sys, re, copy
 from numerics import *
 from config import *
 from operator import itemgetter
@@ -93,6 +93,15 @@ def settings(s : str):
         s : str - The value for which the regular expression must be implemented on.
     """
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)", s))
+
+
+def dofile(sFile):
+    file = open(sFile, 'r', encoding='utf-8')
+    text = re.findall(r'(?<=return )[^.]*', file.read())[0].replace('{', '[').replace('}', ']').replace('=',
+                                                                                                        ':').replace(
+        '[\n', '{\n').replace(' ]', ' }').replace('\'', '"').replace('_', '"_"')
+    file.close()
+    return json.loads(re.sub("(\w+):", r'"\1":', text))
 
 
 def coerce(s):
