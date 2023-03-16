@@ -86,6 +86,9 @@ def test_synonyms():
     show(repCols(dofile(the['file'])['cols'], DATA).cluster(), "mid", data.cols.all, 1)
 
 def test_prototypes():
+    """
+        Test function for the prototypes.
+    """
     t = dofile(the['file'])
     rows = repRows(t, DATA, transpose(t['cols']))
     show(rows.cluster(),"mid",rows.cols.all,1)
@@ -97,4 +100,7 @@ def test_position():
     repPlace(rows)
 
 def test_every():
+    """
+        The whole enchilada
+    """
     repgrid(the['file'], DATA)
