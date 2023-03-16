@@ -45,5 +45,13 @@ if __name__ == "__main__":
     eg("the", "testng the", test_the)
     eg("sym", "testing the sym class", test_sym)
     eg("num", "testing the num class", test_num)
+    eg("copy", "test copy", test_copy)
+    eg("position", "where's wally", test_position)
+    eg("prototypes", "checking repRows cluster", test_prototypes)
+    eg("repCols", "check repCols", test_repCols)
+    eg("repRows", "checking repRows", test_repRows)
+    eg("every", "the whole enchilada", test_every)
+    eg('synonyms', 'checking repCols cluster', test_synonyms)
+
 
 

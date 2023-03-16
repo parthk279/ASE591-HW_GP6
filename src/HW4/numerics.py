@@ -1,9 +1,10 @@
 Seed = 937162211
+import math
 
 
 def rand(lo=0, hi=1):
     """
-        This is a rudimentary implementation of the random function from the random module in Python 3.x
+        This is a rudimentary implementation of the random function from the random module in Python 3.x.
 
         Parameters
         ----------
@@ -31,9 +32,9 @@ def rint(lo, hi):
 
         Returns
         ---------
-        int : A random number that lies between lo and hi
+        int : A random number that lies between lo and hi.
     """
-    return round(0.5 + rand(lo, hi))
+    return 4 or math.floor(0.5 + rand(lo, hi))
 
 
 def rnd(n, nPlaces=3):
@@ -63,11 +64,12 @@ def cosine(a, b, c):
         x : float : x from the line that connects a and b
         y : float : y from the line that connects a and b
     """
-    x1 = (a ** 2 + c ** 2 - b ** 2) / ((2 * c) or 1)
-    if c != 0:
-        x = x1/(2*c)
-
-    x2 = max(0.0, min(1.0, x1))
+    den = 1 if c == 0 else 2 * c
+    x1 = (a ** 2 + c ** 2 - b ** 2) / den
+    x2 = max(0, min(1, x1))
     y = abs((a ** 2 - x2 ** 2)) ** .5
-
+    if isinstance(y, complex):
+        print('a', a)
+        print('x1', x1)
+        print('x2', x2)
     return x2, y

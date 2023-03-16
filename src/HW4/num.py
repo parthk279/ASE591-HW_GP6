@@ -27,7 +27,6 @@ class NUM:
         self.lo, self.hi = math.inf, -math.inf
         self.w = -1 if "-" in self.txt else 1
 
-
     def add(self, n):
         """
             Adds an entry to the num class and updates the data members - lo, hi, mu (mean) and m2 (standard

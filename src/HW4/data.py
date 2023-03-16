@@ -5,6 +5,11 @@ from col import COL
 from config import *
 from numerics import *
 import math
+from pathlib import Path
+
+from row import ROW
+from misc import *
+from operator import itemgetter
 
 
 class DATA:
@@ -12,7 +17,6 @@ class DATA:
         The DATA class is used to act as a container for the information in ROW type objects but is summarized in the
         form of COL type objects.
     """
-
     def __init__(self, src):
         """
             Constructor for creating a DATA type object
@@ -26,8 +30,8 @@ class DATA:
         if isinstance(src, str):
             misc.csv(src, self.add)
         else:
-            for i in src:
-                self.add(i)
+            for row in src:
+                self.add(row)
 
     def add(self, t):
         """
@@ -38,8 +42,7 @@ class DATA:
             t : list : The data that needs to be appended as a new row or for updating the column headers.
         """
         if self.cols:
-            if isinstance(t, list):
-                t = ROW(t)
+            t = ROW(t) if type(t) == list else t
             self.rows.append(t)
             self.cols.add(t)
         else:
@@ -54,8 +57,7 @@ class DATA:
             data : DATA : A clone of the self DATA object
         """
         data = DATA([self.cols.names])
-        for x in self.rows or []:
-            data.add(x)
+        _ = list(map(data.add, init))
         return data
 
     def stats(self, cols=None, nPlaces=None, what=None):
@@ -70,14 +72,13 @@ class DATA:
         """
 
         def fun(_, col):
-            if what == "div":
-                value = col.div()
-            if what == "mid":
-                value = col.mid()
+            if what == 'div':
+                val = col.div()
+            else:
+                val = col.mid()
+            return col.rnd(val, nPlaces), col.txt
 
-            return col.rnd(value, nPlaces), col.txt
-
-        return misc.kap(cols or self.cols.y, fun)
+        return kap(cols or self.cols.y, fun)
 
     def dist(self, row1, row2, cols=None):
         """
@@ -94,11 +95,10 @@ class DATA:
                 float : The distance between row 1 and row 2
         """
         n, d = 0, 0
-        cols = cols if cols else self.cols.x
-        for col in cols:
+        for col in cols or self.cols.x:
             n = n + 1
-            d = d + (col.dist(row1.cells[col.at], row2.cells[col.at]) ** the["p"])
-        return (d / n) ** (1 / the["p"])
+            d = d + col.dist(row1.cells[col.at], row2.cells[col.at]) ** the['p']
+        return (d / n) ** (1 / the['p'])
 
     def around(self, row1, rows=None, cols=None):
         """
@@ -111,10 +111,10 @@ class DATA:
             cols : COL : The COL object to manage rows
         """
 
-        def func(row2):
-            return {"row": row2, "dist": self.dist(row1, row2, cols)}
+        def function(row2):
+            return {'row': row2, 'dist': self.dist(row1, row2, cols)}
 
-        return sorted(list(map(func, rows or self.rows)), key=itemgetter("dist"))
+        return sorted(list(map(function, rows or self.rows)), key=itemgetter('dist'))
 
     def half(self, rows=None, cols=None, above=None):
         """
@@ -131,16 +131,22 @@ class DATA:
             return self.dist(row1, row2, cols)
 
         rows = rows or self.rows
-        some = misc.many(rows, the['Sample'])
-        A = above or any(some)
-        B = self.around(A, some)[int(the['Far'] * len(rows)) // 1]['row']
+        A = above or any(rows)
+        B = self.furthest(A, rows)['row']
         c = dist(A, B)
         left, right = [], []
 
         def project(row):
-            return {'row': row, 'dist': cosine(dist(row, A), dist(row, B), c)}
+            x, y = cosine(dist(row, A), dist(row, B), c)
+            try:
+                row.x = row.x
+                row.y = row.y
+            except:
+                row.x = x
+                row.y = y
+            return {'row': row, 'x': x, 'y': y}
 
-        for n, tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
+        for n, tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('x'))):
             if n < len(rows) // 2:
                 left.append(tmp['row'])
                 mid = tmp['row']
@@ -148,7 +154,7 @@ class DATA:
                 right.append(tmp['row'])
         return left, right, A, B, mid, c
 
-    def cluster(self, rows=None, min=None, cols=None, above=None):
+    def cluster(self, rows=None,  cols=None, above=None):
         """
             Returns rows recursively halved
 
@@ -160,14 +166,12 @@ class DATA:
             above : ROW : The row around which clustering is formed
         """
         rows = rows or self.rows
-        min = min or len(rows) ** the["min"]
         cols = cols or self.cols.x
         node = {'data': self.clone(rows)}
-
-        if len(rows) > 2 * min:
-            left, right, node['A'], node['B'], node["mid"], _ = self.half(rows, cols, above)
-            node['left'] = self.cluster(left, min, cols, node['A'])
-            node['right'] = self.cluster(right, min, cols, node['B'])
+        if len(rows) >= 2:
+            left, right, node['A'], node['B'], node['mid'], node['c'] = self.half(rows, cols, above)
+            node['left'] = self.cluster(left, cols, node['A'])
+            node['right'] = self.cluster(right, cols, node['B'])
         return node
 
     def better(self, row1, row2):
@@ -183,8 +187,7 @@ class DATA:
             -------
             bool : Checks if s1/len(ys) < s2/len(ys). This way we will know if row1 dominates row2 or not
         """
-        s1, s2 = 0, 0
-        ys = self.cols.y
+        s1, s2, ys = 0, 0, self.cols.y
         for col in ys:
             x = col.norm(row1.cells[col.at])
             y = col.norm(row2.cells[col.at])

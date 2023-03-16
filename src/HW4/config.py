@@ -3,17 +3,14 @@ the = {
     'go': None,
     'seed': 937162211,
     "file": "../../etc/data/repgrid1.csv",
-    "Far": 0.95,
-    "min": 0.5,
     "p": 2,
-    "Sample": 512
 }
 egs = {}
 help = '''USAGE: python main.py  [OPTIONS] [-g ACTION]
 
 OPTIONS:
   -d  --dump    on crash, dump stack   = false
-  -f  --file    name of file           = ../etc/data/auto93.csv
+  -f  --file    name of file           = ../etc/data/repgrid1.csv
   -F  --Far     distance to "faraway"  = .95
   -g  --go      start-up action        = data
   -h  --help    show help              = false
@@ -26,5 +23,3 @@ OPTIONS:
 egs = {}
 
 Seed = 937162211
-
-n = 0
