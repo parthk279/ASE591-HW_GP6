@@ -6,7 +6,14 @@ the = {
     "Far": 0.95,
     "min": 0.5,
     "p": 2,
-    "Sample": 512
+    "Sample": 512,
+    "bins": 16,
+    "cliffs": 0.147,
+    "Halves": 512,
+    "Max": 512,
+    "rest": 4,
+    "Reuse": True
+
 }
 egs = {}
 help = '''USAGE:   python main.py [OPTIONS] [-g ACTION]

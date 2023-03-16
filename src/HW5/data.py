@@ -144,3 +144,7 @@ class DATA:
                 left, right, node['A'], node['B'] = right, left, node['B'], node['A']
             node['left'] = self.sway(left, min, cols, node['A'])
         return node
+
+    def furthest(self, row1, rows = None, cols = None):
+        t=self.around(row1,rows,cols)
+        return t[len(t) - 1]

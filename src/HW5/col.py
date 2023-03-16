@@ -17,6 +17,7 @@ class COL:
         self.klass = None
         self.x = []
         self.y = []
+        self.klass = None
 
         for column_name in self.names:
             if column_name[0].isupper():
