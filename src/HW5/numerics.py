@@ -1,20 +1,21 @@
 Seed = 937162211
 
 
-def rand(lo=0, hi=1):
+def rand(lo=0, hi=1, mSeed=None):
     """
     Retruns the float value x between lo and hi
     """
+    lo, hi = lo or 0, hi or 1
     global Seed
-    Seed = (16807 * Seed) % 2147483647
+    Seed = 1 if mSeed else (16807 * Seed) % 2147483647
     return lo + (hi - lo) * Seed / 2147483647
 
 
-def rint(lo, hi):
+def rint(lo, hi, mSeed=None):
     """
     Returns the rounded off digit of a random float value between lo and hi
     """
-    return round(0.5 + rand(lo, hi))
+    return round(0.5 + rand(lo, hi, mSeed))
 
 
 def rnd(n, nPlaces=3):

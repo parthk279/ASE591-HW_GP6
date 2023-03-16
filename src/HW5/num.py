@@ -1,6 +1,6 @@
 import math
 from numerics import *
-
+from config import *
 
 class NUM:
     def __init__(self, at=None, txt=None):
@@ -18,6 +18,7 @@ class NUM:
         self.count, self.mu, self.m2 = 0, 0, 0
         self.lo, self.hi = math.inf, -math.inf
         self.w = -1 if "-" in self.txt else 1
+        self.has = {}
 
 
     def add(self, n):
@@ -28,6 +29,8 @@ class NUM:
         if n != "?":
             self.count += 1
             d = n - self.mu
+            if self.n <= the['Max']:
+                self.has[n]= n
             self.mu += d / self.count
             self.m2 += d * (n - self.mu)
             self.lo = min(self.lo, n)

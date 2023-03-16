@@ -4,6 +4,7 @@ from col import COL
 from config import *
 from numerics import *
 import math
+import misc
 
 
 class DATA:
@@ -15,7 +16,7 @@ class DATA:
         self.rows = []
         self.cols = None
         if isinstance(src, str):
-            csv(src, self.add)
+            misc.csv(src, self.add)
         else:
             for i in src:
                 self.add(i)
@@ -32,7 +33,7 @@ class DATA:
         else:
             self.cols = COL(t)
 
-    def clone(self, init = {}):
+    def clone(self, init={}):
         """
         For cloning the DATA object with the same structure as init
         """
@@ -41,13 +42,18 @@ class DATA:
             data.add(x)
         return data
 
-    def stats(self, cols=None, nPlaces=None, what=None,):
+    def stats(self, cols=None, nPlaces=None, what=None, ):
         """
-        Function for returning a certain attribute or certain stats
-        for a column in data
+            Returns either the 'div' stats or the 'mid' stats based on the 'what' argument passed.
+
+            Parameters
+            ----------
+            cols : list : The sequence object from which the datas will be taken from - self.cols.y
+            nPlaces : int : The number of places that the stats must be rounded off to.
+            what : str : The argument passed which decided which stat must be returned ("mid" or "div")
         """
 
-        def fun(k, col):
+        def fun(_, col):
             if what == "div":
                 value = col.div()
             if what == "mid":
@@ -55,8 +61,7 @@ class DATA:
 
             return col.rnd(value, nPlaces), col.txt
 
-        return kap(cols or self.cols.y, fun)
-
+        return misc.kap(cols or self.cols.y, fun)
 
     def dist(self, row1, row2, cols=None, n=None, d=None):
         """
@@ -85,18 +90,21 @@ class DATA:
         Divides the data with 2 points
         """
 
-        def dist(row1,row2):
-            return self.dist(row1,row2,cols)
+        def dist(row1, row2):
+            return self.dist(row1, row2, cols)
+
         rows = rows or self.rows
-        some = many(rows,the['Sample'])
-        A    = above or any(some)
-        B    = self.around(A,some)[int(the['Far'] * len(rows))//1]['row']
-        c    = dist(A,B)
+        some = misc.many(rows, the['Sample'])
+        A = above or any(some)
+        B = self.around(A, some)[int(the['Far'] * len(rows)) // 1]['row']
+        c = dist(A, B)
         left, right = [], []
+
         def project(row):
-            return {'row' : row, 'dist' : cosine(dist(row,A), dist(row,B), c)}
-        for n,tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
-            if n < len(rows)//2:
+            return {'row': row, 'dist': cosine(dist(row, A), dist(row, B), c)}
+
+        for n, tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
+            if n < len(rows) // 2:
                 left.append(tmp['row'])
                 mid = tmp['row']
             else:
@@ -111,7 +119,7 @@ class DATA:
         cols = cols or self.cols.x
         node = {'data': self.clone(rows)}
 
-        if len(rows) >=2:
+        if len(rows) >= 2:
             left, right, node['A'], node['B'], node["mid"], _ = self.half(rows, cols, above)
             node['left'] = self.cluster(left, cols, node['A'])
             node['right'] = self.cluster(right, cols, node['B'])
@@ -143,4 +151,19 @@ class DATA:
             if self.better(node['B'], node['A']):
                 left, right, node['A'], node['B'] = right, left, node['B'], node['A']
             node['left'] = self.sway(left, min, cols, node['A'])
+        return node
+
+    def furthest(self, row1, rows=None, cols=None):
+        t = self.around(row1, rows, cols)
+        return t[len(t) - 1]
+
+    def tree(self, rows=None, min=None, cols=None, above=None):
+        rows = rows or self.rows
+        min = min or len(rows) ** the['min']
+        cols = cols or self.cols.x
+        node = {'data': self.clone(rows)}
+        if len(rows) >= 2 * min:
+            left, right, node['A'], node['B'], node['mid'], _ = self.half(rows, cols, above)
+            node['left'] = self.tree(left, min, cols, node['A'])
+            node['right'] = self.tree(right, min, cols, node['B'])
         return node
