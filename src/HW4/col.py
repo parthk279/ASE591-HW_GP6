@@ -19,25 +19,24 @@ class COL:
         """
         self.names = names
         self.all = []
-        self.klass = None
         self.x = []
         self.y = []
+        self.klass = None
 
-        for column_name in self.names:
-            if column_name[0].isupper():
-                column = NUM(names.index(column_name), column_name)
+        for col_name in names:
+            if col_name[0].isupper():
+                col = NUM(names.index(col_name), col_name)
             else:
-                column = SYM(names.index(column_name), column_name)
+                col = SYM(names.index(col_name), col_name)
+            self.all.append(col)
 
-            if column_name[-1] != ':':
-                if '!' in column_name or '+' in column_name or '-' in column_name:
-                    self.y.append(column)
+            if not col_name[-1] == "X":
+                if "+" in col_name or "!" in col_name:
+                    self.y.append(col)
                 else:
-                    self.x.append(column)
-
-            if column_name[-1] == '!':
-                self.klass = column
-            self.all.append(column)
+                    self.x.append(col)
+                if "!" in col_name:
+                    self.klass = col
 
     def __str__(self):
         """

@@ -1,4 +1,4 @@
-import sys, re, copy
+import sys, re, copy, json
 from numerics import *
 from config import *
 from operator import itemgetter
@@ -72,14 +72,10 @@ def fmt(*strings):
 
 
 def oo(t):
-    """
-    Emulating Print function and returning sorted value
-    """
-    print(t)
-    if not isinstance(t, dict):
-        return t
-    else:
-        return dict(sorted(t.items(), key=itemgetter(1)))
+    td = t.__dict__
+    td['a'] = t.__class__.__name__
+    td['id'] = id(t)
+    print(dict(sorted(td.items())))
 
 
 def settings(s : str):
@@ -207,16 +203,6 @@ def rnd(n, nPlaces=3):
     """
     return round(n * (10 ** nPlaces) + 0.5) / (10 ** nPlaces)
 
-
-def oo(t):
-    """
-        Emulating Print function and returning sorted value
-    """
-    print(t)
-    if not isinstance(t, dict):
-        return t
-    else:
-        return dict(sorted(t.items(), key=itemgetter(1)))
 
 
 def kap(iterable, fun):

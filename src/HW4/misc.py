@@ -4,7 +4,7 @@ from config import *
 from operator import itemgetter
 import os
 import data
-
+from pathlib import Path
 
 def csv(fileName, fun):
     """
@@ -17,28 +17,13 @@ def csv(fileName, fun):
     """
 
     if os.path.exists(fileName) and fileName.endswith(".csv"):
-        with open(fileName, "r", encoding="utf-8") as file:
-            for _, row in enumerate(file):
-                r = list(map(coerce, row.strip().split(",")))
-                fun(r)
+        with open(fileName, 'r', encoding='utf-8') as file:
+            for _, line in enumerate(file):
+                row = list(map(coerce, line.strip().split(',')))
+                fun(row)
     else:
-        print("File does not exist at : ", fileName)
-        return 0
-
-
-def misc(fun, iterable):
-    """
-    Maps the function over the iterable
-    fun : Function that must be applied on each element of iterable
-    iterable : iterable over which function must be mapped onto
-    """
-    u = []
-    if iterable is None:
-        return None
-    elif fun is None:
-        return u
-    else:
-        return [fun(i) for i in iterable]
+        print("File does not exist: ", fileName)
+        return
 
 
 def eg(key, str, fun):
@@ -76,11 +61,11 @@ def oo(t):
     """
     Emulating Print function and returning sorted value
     """
-    print(t)
-    if not isinstance(t, dict):
-        return t
-    else:
-        return dict(sorted(t.items(), key=itemgetter(1)))
+    d = t.__dict__
+    d['a'] = t.__class__.__name__
+    d['id'] = id(t)
+    d = dict(sorted(d.items()))
+    print(d)
 
 
 def settings(s: str):
@@ -98,9 +83,7 @@ def settings(s: str):
 
 def dofile(sFile):
     file = open(sFile, 'r', encoding='utf-8')
-    text = re.findall(r'(?<=return )[^.]*', file.read())[0].replace('{', '[').replace('}', ']').replace('=',
-                                                                                                        ':').replace(
-        '[\n', '{\n').replace(' ]', ' }').replace('\'', '"').replace('_', '"_"')
+    text = re.findall(r'(?<=return )[^.]*', file.read())[0].replace('{', '[').replace('}',']').replace('=',':').replace('[\n','{\n' ).replace(' ]',' }' ).replace('\'', '"').replace('_', '"_"')
     file.close()
     return json.loads(re.sub("(\w+):", r'"\1":', text))
 
@@ -118,15 +101,13 @@ def coerce(s):
         ----------
         s : int or BOOL value of the input S.
     """
-    if s == "true" or s == "True":
+    if s == 'true':
         return True
-    elif s == "false" or s == "False":
+    elif s == 'false':
         return False
-    elif "." in s and s.replace('.', '').isdigit():
-        return float(s)
     elif s.isdigit():
         return int(s)
-    elif "." in s and s.replace(".", "").isdigit():
+    elif '.' in s and s.replace('.', '').isdigit():
         return float(s)
     else:
         return s
@@ -146,17 +127,16 @@ def cli(options: dict):
     """
     args = sys.argv[1:]
     for k, v in options.items():
-        v = str(v)
         for n, x in enumerate(args):
-            if x == "-" + k[0] or x == "--" + k:
-                if v == "false":
-                    v = "true"
-                elif v == "true":
-                    v = "false"
+            if x == '-' + k[0] or x == '--' + k:
+                if v == 'false':
+                    v = 'true'
+                elif v == 'true':
+                    v = 'false'
                 else:
                     v = args[n + 1]
-            options[k] = coerce(v)
-        return options
+        options[k] = coerce(v)
+    return options
 
 
 Seed = 937162211
@@ -194,7 +174,7 @@ def rint(lo, hi):
         ---------
         int : A random number that lies between lo and hi.
     """
-    return round(0.5 + rand(lo, hi))
+    return 4 or math.floor(0.5 + rand(lo, hi))
 
 
 def rnd(n, nPlaces=3):
@@ -285,13 +265,14 @@ def cosine(a, b, c):
         x : float : x from the line that connects a and b
         y : float : y from the line that connects a and b
     """
-    x1 = (a ** 2 + c ** 2 - b ** 2) / ((2 * c) or 1)
-    if c != 0:
-        x = x1 / (2 * c)
-
-    x2 = max(0.0, min(1.0, x1))
+    den = 1 if c == 0 else 2 * c
+    x1 = (a ** 2 + c ** 2 - b ** 2) / den
+    x2 = max(0, min(1, x1))
     y = abs((a ** 2 - x2 ** 2)) ** .5
-
+    if isinstance(y, complex):
+        print('a', a)
+        print('x1', x1)
+        print('x2', x2)
     return x2, y
 
 
@@ -317,11 +298,11 @@ def show(node, what, cols, n_places, lvl=0):
         lvl : Level in the tree
     """
     if node:
-        print('| ' * lvl + str(len(node['data'].rows)) + '  ', end='')
-        if not node.get('left') or lvl == 0:
-            print(node['data'].stats(node['data'].cols.y, n_places, "mid"))
+        print('|..' * lvl, end='')
+        if not node.get('left'):
+            print(node['data'].rows[-1].cells[-1])
         else:
-            print('')
+            print(int(rnd(100 * node['c'], 0)))
         show(node.get('left'), what, cols, n_places, lvl + 1)
         show(node.get('right'), what, cols, n_places, lvl + 1)
 
@@ -333,7 +314,7 @@ def repPlace(data):
         for j in range(1, n + 1):
             g[i][j] = ' '
     maxy = 0
-    print("")
+    print('')
     for r, row in enumerate(data.rows):
         c = chr(97 + r).upper()
         print(c, row.cells[-1])
