@@ -1,0 +1,129 @@
+============================= test session starts =============================
+collecting ... collected 14 items
+
+main.py::test_cliffs <- src\HW5\test_all_HW5.py
+main.py::test_rand <- src\HW5\test_all_HW5.py
+main.py::test_sym <- src\HW5\test_all_HW5.py
+main.py::test_num <- src\HW5\test_all_HW5.py
+main.py::test_the <- src\HW5\test_all_HW5.py
+main.py::test_csv <- src\HW5\test_all_HW5.py
+main.py::test_data <- src\HW5\test_all_HW5.py
+main.py::test_sway <- src\HW5\test_all_HW5.py
+main.py::test_clone <- src\HW5\test_all_HW5.py
+main.py::test_some <- src\HW5\test_all_HW5.py
+main.py::test_dist <- src\HW5\test_all_HW5.py
+main.py::test_tree <- src\HW5\test_all_HW5.py
+main.py::test_bins <- src\HW5\test_all_HW5.py
+main.py::test_half <- src\HW5\test_all_HW5.py
+
+
+
+PASSED                   [  7%]
+> 1.0 False
+> 1.026 False
+> 1.051 False
+> 1.077 False
+> 1.104 False
+> 1.132 False
+> 1.16 True
+
+PASSED                     [ 14%]
+
+PASSED                      [ 21%]
+a 1.38
+
+PASSED                      [ 29%]
+1 0.5 0.3
+2 0.26 0.32
+
+
+PASSED                      [ 36%]
+{'dump': False, 'go': None, 'seed': 937162211, 'file': '../../etc/data/auto93.csv', 'Far': 0.95, 'min': 0.5, 'p': 2, 'Sample': 512, 'bins': 16, 'cliffs': 0.147, 'Halves': 512, 'Max': 512, 'rest': 4, 'Reuse': True}
+
+PASSED                      [ 43%]
+
+PASSED                      [ 50%]
+3 8 4 1.5503875968992247
+{'Acc+': 15.5, 'Lbs-': 2800.0, 'Mpg+': 20.0, 'N': 398}
+
+PASSED                      [ 57%]
+all  {'Lbs-': 2970.42, 'Acc+': 15.57, 'Mpg+': 23.84}
+     {'Lbs-': 846.84, 'Acc+': 2.76, 'Mpg+': 8.34}
+
+best {'Lbs-': 2064.62, 'Acc+': 15.41, 'Mpg+': 28.46}
+     {'Lbs-': 215.43, 'Acc+': 2.47, 'Mpg+': 3.76}
+
+rest {'Lbs-': 3041.08, 'Acc+': 15.9, 'Mpg+': 24.23}
+     {'Lbs-': 850.28, 'Acc+': 2.82, 'Mpg+': 8.48}
+
+PASSED                      [ 64%]
+{'Lbs-': 2970.42, 'Acc+': 15.57, 'Mpg+': 23.84}
+{'Lbs-': 2970.42, 'Acc+': 15.57, 'Mpg+': 23.84}
+
+PASSED                      [ 71%]
+{1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 15: 15, 16: 16, 17: 17, 18: 18, 19: 19, 20: 20, 21: 21, 22: 22, 23: 23, 24: 24, 25: 25, 26: 26, 27: 27, 28: 28, 29: 29, 30: 30, 31: 31, 32: 32}
+
+PASSED                      [ 79%]
+{'lo': 0.0, 'hi': 0.9022161422721422, 'mid': 0.52, 'div': 0.26}
+
+PASSED                      [ 86%]
+[398]  {'Lbs-': 2970.4, 'Acc+': 15.6, 'Mpg+': 23.8}
+|.. [199]
+|.. |.. [99]
+|.. |.. |.. [49]
+|.. |.. |.. |.. [24]  {'Lbs-': 4376.0, 'Acc+': 12.9, 'Mpg+': 12.5}
+|.. |.. |.. |.. [25]  {'Lbs-': 3833.2, 'Acc+': 15.0, 'Mpg+': 17.2}
+|.. |.. |.. [50]
+|.. |.. |.. |.. [25]  {'Lbs-': 3481.2, 'Acc+': 16.8, 'Mpg+': 20.0}
+|.. |.. |.. |.. [25]  {'Lbs-': 3675.4, 'Acc+': 15.2, 'Mpg+': 20.4}
+|.. |.. [100]
+|.. |.. |.. [50]
+|.. |.. |.. |.. [25]  {'Lbs-': 2953.2, 'Acc+': 15.4, 'Mpg+': 20.4}
+|.. |.. |.. |.. [25]  {'Lbs-': 3036.6, 'Acc+': 15.3, 'Mpg+': 20.0}
+|.. |.. |.. [50]
+|.. |.. |.. |.. [25]  {'Lbs-': 3729.4, 'Acc+': 14.2, 'Mpg+': 16.8}
+|.. |.. |.. |.. [25]  {'Lbs-': 3691.0, 'Acc+': 12.8, 'Mpg+': 17.6}
+|.. [199]
+|.. |.. [99]
+|.. |.. |.. [49]
+|.. |.. |.. |.. [24]  {'Lbs-': 2040.7, 'Acc+': 16.9, 'Mpg+': 30.0}
+|.. |.. |.. |.. [25]  {'Lbs-': 2687.5, 'Acc+': 15.7, 'Mpg+': 23.2}
+|.. |.. |.. [50]
+|.. |.. |.. |.. [25]  {'Lbs-': 2514.7, 'Acc+': 17.3, 'Mpg+': 31.6}
+|.. |.. |.. |.. [25]  {'Lbs-': 2583.6, 'Acc+': 17.0, 'Mpg+': 31.2}
+|.. |.. [100]
+|.. |.. |.. [50]
+|.. |.. |.. |.. [25]  {'Lbs-': 2217.2, 'Acc+': 16.5, 'Mpg+': 28.0}
+|.. |.. |.. |.. [25]  {'Lbs-': 2212.4, 'Acc+': 16.4, 'Mpg+': 33.6}
+|.. |.. |.. [50]
+|.. |.. |.. |.. [25]  {'Lbs-': 2145.3, 'Acc+': 16.6, 'Mpg+': 26.8}
+|.. |.. |.. |.. [25]  {'Lbs-': 2368.4, 'Acc+': 15.1, 'Mpg+': 32.0}
+
+PASSED                      [ 93%]
+all    {'best': 12, 'rest': 48}
+
+Clndrs	-inf	3.  	0.08	{:best 1}
+Clndrs	3	    4	   0.64	  {:best 11 :rest 19}
+Clndrs	4	    inf	 0.0	  {:rest 29}
+
+Volume	-inf	90	0.69	  {:best 9 :rest 3}
+Volume	90	115	  0.17	  {:best 3 :rest 6}
+Volume	115	inf	  0.0	    {:rest 39}
+
+Model	-inf	77	0.0	      {:rest 30}
+Model	 77	  78	0.28	    {:best 4 :rest 3}
+Model	 78	  79	0.12	    {:best 2 :rest 3}
+Model	 79	  80	0.43	    {:best 6 :rest 4}
+Model	 80	 inf	0.0.      {:rest 8}
+
+origin	1	 1	 0.0	      {:rest 33}
+origin	2	 2	 0.0	      {:rest 8}
+origin	3	 3	 0.87	     {:best 12 :rest 7}
+
+PASSED                      [ 100%]
+199 199
+[6, 258, 95, 3193, 17.8, 76, 1, 20] 0.5737558524015601
+[4, 151, 85, 2855, 17.6, 78, 1, 20]
+[4, 119, 97, 2300, 14.7, 78, 3, 30]
+l {'Lbs-': 3593.09, 'Acc+': 14.71, 'Mpg+': 18.14}
+r {'Lbs-': 2347.76, 'Acc+': 16.43, 'Mpg+': 29.55}

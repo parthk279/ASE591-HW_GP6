@@ -5,7 +5,7 @@ from operator import itemgetter
 import os
 import data
 from sym import SYM
-
+import math
 
 def csv(fileName, fun):
     """
@@ -359,15 +359,16 @@ def mergeAny(ranges0):
     return noGaps(ranges0) if len(ranges0) == len(ranges1) else mergeAny(ranges1)
 
 
-def RANGE(at,txt,lo,hi=None):
-    return {'at':at,'txt':txt,'lo':lo,'hi':lo or hi or lo,'y':SYM()}
+def RANGE(at, txt, lo, hi=None):
+    return {'at': at, 'txt': txt, 'lo': lo, 'hi': lo or hi or lo, 'y': SYM()}
 
-def showTree(node, what, cols, nPlaces, lvl = 0):
-  if node:
-    print('|.. ' * lvl + '[' + str(len(node['data'].rows)) + ']' + '  ', end = '')
-    if not node.get('left') or lvl==0:
-        print(node['data'].stats("mid",node['data'].cols.y,nPlaces))
-    else:
-        print('')
-    showTree(node.get('left'), what,cols, nPlaces, lvl+1)
-    showTree(node.get('right'), what,cols,nPlaces, lvl+1)
+
+def showTree(node, what, cols, nPlaces, lvl=0):
+    if node:
+        print('|.. ' * lvl + '[' + str(len(node['data'].rows)) + ']' + '  ', end='')
+        if not node.get('left') or lvl == 0:
+            print(node['data'].stats("mid", node['data'].cols.y, nPlaces))
+        else:
+            print('')
+        showTree(node.get('left'), what, cols, nPlaces, lvl + 1)
+        showTree(node.get('right'), what, cols, nPlaces, lvl + 1)
