@@ -1,4 +1,5 @@
 from misc import *
+import misc
 from row import ROW
 from col import COL
 from config import *
@@ -11,7 +12,6 @@ class DATA:
         The DATA class is used to act as a container for the information in ROW type objects but is summarized in the
         form of COL type objects.
     """
-
     def __init__(self, src):
         """
             Constructor for creating a DATA type object
@@ -23,7 +23,7 @@ class DATA:
         self.rows = []
         self.cols = None
         if isinstance(src, str):
-            csv(src, self.add)
+            misc.csv(src, self.add)
         else:
             for i in src:
                 self.add(i)
@@ -57,7 +57,7 @@ class DATA:
             data.add(x)
         return data
 
-    def stats(self, cols=None, nPlaces=None, what=None, ):
+    def stats(self, cols=None, nPlaces=None, what=None):
         """
             Returns either the 'div' stats or the 'mid' stats based on the 'what' argument passed.
 

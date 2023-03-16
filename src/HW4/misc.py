@@ -1,13 +1,19 @@
-import sys, re, copy
+import sys, re, copy, json
 from numerics import *
 from config import *
 from operator import itemgetter
 import os
 import data
 
+
 def csv(fileName, fun):
     """
-    Function for reading the csv file and applying a function over the text in csv file
+        Calls the certain 'fun' on all the rows after moving through the cell text.
+
+        Parameters
+        ----------
+        fileName : str : The Path of the csv file
+        fun : function : Function that must be applied on ech row of the csv file
     """
 
     if os.path.exists(fileName) and fileName.endswith(".csv"):
@@ -46,15 +52,19 @@ def eg(key, str, fun):
 
 def keys(t: dict):
     """
-    Returns the sorted list of dictionary keys
-    t : dictionary
+        Returns the sorted list of dictionary keys.
+        t : dictionary
     """
     return sorted(t)
 
 
 def fmt(*strings):
     """
-    Emulating Print function
+        Emulating Print function for multiple string. It is very similar to the print() function in Python 3.x.
+
+        Parameters
+        ----------
+        *strings : str - The string values that must be printed out.
     """
     for string in strings:
         string = str(string)
@@ -73,63 +83,145 @@ def oo(t):
         return dict(sorted(t.items(), key=itemgetter(1)))
 
 
-def settings(s):
+def settings(s: str):
     """
-    Using REGEX to read the settings
+        Coerces the global variables for the options. implements regular expression (regex) to refer to a sequence
+        of characters that specifies a search patter in text. Used to find or find and replace operations for the
+        global variables.
+
+        Parameters
+        ----------
+        s : str - The value for which the regular expression must be implemented on.
     """
     return dict(re.findall("\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)", s))
 
+
 def dofile(sFile):
     file = open(sFile, 'r', encoding='utf-8')
-    text  = re.findall(r'(?<=return )[^.]*', file.read())[0].replace('{', '[').replace('}',']').replace('=',':').replace('[\n','{\n' ).replace(' ]',' }' ).replace('\'', '"').replace('_', '"_"')
+    text = re.findall(r'(?<=return )[^.]*', file.read())[0].replace('{', '[').replace('}', ']').replace('=',
+                                                                                                        ':').replace(
+        '[\n', '{\n').replace(' ]', ' }').replace('\'', '"').replace('_', '"_"')
     file.close()
     return json.loads(re.sub("(\w+):", r'"\1":', text))
 
 
 def coerce(s):
     """
-    Reading the values in s and reformatting it for test use
+        This function is used to convert a value to a Boolean. When the input is not a boolean
+        it converts it into a integer.
+
+        Parameters
+        ----------
+        s : str - The value to be converted to a boolean or an integer.
+
+        Returns
+        ----------
+        s : int or BOOL value of the input S.
     """
-
-    def fun(s1):
-        if s1 == "true" or s1 == "True":
-            return True
-        elif s1 == "false" or s1 == "False":
-            return False
-        return s1
-
-    if s.isdigit():
+    if s == "true" or s == "True":
+        return True
+    elif s == "false" or s == "False":
+        return False
+    elif "." in s and s.replace('.', '').isdigit():
+        return float(s)
+    elif s.isdigit():
         return int(s)
     elif "." in s and s.replace(".", "").isdigit():
         return float(s)
     else:
-        return fun(s.strip())
+        return s
 
 
-def cli(options):
+def cli(options: dict):
     """
-    Function for displaying and for printing the command line interface options.
+       Uses the command line interface to update "the" variable options from the command line.
+
+       Parameters
+       -----------
+        options : dict : It is a dictionary containing the global variables and options.
+
+        Returns
+        ----------
+        options : dict : The modified dictionary containing the updated globals options from the command line.
     """
-    arg = sys.argv[1:]
+    args = sys.argv[1:]
     for k, v in options.items():
         v = str(v)
-        for n, x in enumerate(arg):
+        for n, x in enumerate(args):
             if x == "-" + k[0] or x == "--" + k:
                 if v == "false":
                     v = "true"
                 elif v == "true":
                     v = "false"
                 else:
-                    v = arg[n + 1]
+                    v = args[n + 1]
             options[k] = coerce(v)
-
         return options
+
+
+Seed = 937162211
+
+
+def rand(lo=0, hi=1):
+    """
+        This is a rudimentary implementation of the random function from the random module in Python 3.x.
+
+        Parameters
+        ----------
+        lo : int : The lower bound of the range in which the random number must be generated from.
+        hi : int : The higher bound of the range in which the random number must be generated from.
+
+        Returns
+        ---------
+        float : A random number that lies between lo and hi.
+    """
+    global Seed
+    Seed = (16807 * Seed) % 2147483647
+    return lo + (hi - lo) * Seed / 2147483647
+
+
+def rint(lo, hi):
+    """
+        Implements the rand() function and returns the closest rounded off value of the float value generated
+        between the two bounds lo and hi.
+
+        Parameters
+        ----------
+        lo : int : The lower bound of the range in which the random number must be generated from.
+        hi : int : The higher bound of the range in which the random number must be generated from.
+
+        Returns
+        ---------
+        int : A random number that lies between lo and hi.
+    """
+    return round(0.5 + rand(lo, hi))
+
+
+def rnd(n, nPlaces=3):
+    """
+        Takes a float number and rounds it off to three decimal places.
+
+        Parameters
+        ----------
+        n : float : The number that must be rounded off to by n places.
+        nPlaces : int : The number of places that the number must be rounded off to.
+    """
+    return round(n * (10 ** nPlaces) + 0.5) / (10 ** nPlaces)
 
 
 def kap(iterable, fun):
     """
-    Applies a function over a iterable and returns the result as key value pair with key as index
-    and value as result of the function
+        Applies a function over an iterable and returns the result as key value pair with key as index
+        and value as result of the function
+
+        Parameters
+        ----------
+        iterable : list : The iterable over which the function must be applied onto
+        fun : function : the function that must be applied to the iterable
+
+        Returns
+        ----------
+        result : dict : A key-value pair as index and result of the function
     """
     result = {}
     for i in iterable:
@@ -146,42 +238,83 @@ def push(t, x):
 
 def any(iterable):
     """
-    Returns random item from an iterable
+        Returns random item from an iterable
+
+        Parameters
+        ---------
+        iterable : list : The list from which the random item must be returned
+
+        Returns
+        -------
+        A random item from the iterable
     """
     return iterable[rint(0, len(iterable) - 1)]
 
 
 def many(iterable, n):
     """
-    Returns a few items from an iterable
+        Returns a few items from an iterable
+
+        Parameters
+        ---------
+        iterable : list : The list from which the items must be returned from
+        n : The number of items that must be returned
+
+        Returns
+        -------
+        list : A list of items randomly selected from the iterable
     """
     u = []
     for _ in range(1, n + 1):
         u.append(any(iterable))
     return u
 
-def cosine(a,b,c):
-    d = 1 if c == 0 else 2*c
-    w1 = (a**2 + c**2 - b**2) / d
-    w2 = max(0, min(1, w1))
-    y  = abs((a**2 - w2**2))**.5
-    if isinstance(y, complex):
-        print('a', a)
-        print('x1', w1)
-        print('x2', w2)
-    return w2, y
+
+def cosine(a, b, c):
+    """
+        Get x, y from a line connecting `a` to `b`
+
+        Parameters
+        ----------
+        a : float : The a value to calculate the cosine from
+        b : float : The b value to calculate the cosine from
+        c : float : The c value to calculate the cosine from
+
+        Returns
+        -------
+        x : float : x from the line that connects a and b
+        y : float : y from the line that connects a and b
+    """
+    x1 = (a ** 2 + c ** 2 - b ** 2) / ((2 * c) or 1)
+    if c != 0:
+        x = x1 / (2 * c)
+
+    x2 = max(0.0, min(1.0, x1))
+    y = abs((a ** 2 - x2 ** 2)) ** .5
+
+    return x2, y
+
 
 def transpose(t):
-    tt=[]
+    u = []
     for i in range(len(t[1])):
-        tt.append([])
+        u.append([])
         for j in range(len(t)):
-            tt[i].append(t[j][i])
-    return tt
+            u[i].append(t[j][i])
+    return u
+
 
 def show(node, what, cols, n_places, lvl=0):
     """
-    Prints the tree
+        Prints the tree
+
+        Parameters
+        ----------
+        node : Node of the tree
+        what : The Statistics that needs to be printed
+        cols : Columns to print the statistics for
+        n_places : Number of decimals
+        lvl : Level in the tree
     """
     if node:
         print('| ' * lvl + str(len(node['data'].rows)) + '  ', end='')
@@ -192,38 +325,42 @@ def show(node, what, cols, n_places, lvl=0):
         show(node.get('left'), what, cols, n_places, lvl + 1)
         show(node.get('right'), what, cols, n_places, lvl + 1)
 
+
 def repPlace(data):
-    n,g = 20,{}
-    for i in range(1, n+1):
-        g[i]={}
-        for j in range(1, n+1):
-            g[i][j]=' '
+    n, g = 20, {}
+    for i in range(1, n + 1):
+        g[i] = {}
+        for j in range(1, n + 1):
+            g[i][j] = ' '
     maxy = 0
-    print('')
-    for r,row in enumerate(data.rows):
-        c = chr(97+r).upper()
+    print("")
+    for r, row in enumerate(data.rows):
+        c = chr(97 + r).upper()
         print(c, row.cells[-1])
-        x,y= row.x*n//1, row.y*n//1
-        maxy = int(max(maxy,y+1))
-        g[y+1][x+1] = c
+        x, y = row.x * n // 1, row.y * n // 1
+        maxy = int(max(maxy, y + 1))
+        g[y + 1][x + 1] = c
     print('')
-    for y in range(1,maxy+1):
+    for y in range(1, maxy + 1):
         print(' '.join(g[y].values()))
-        
+
+
 def deepcopy(t):
     return copy.deepcopy(t)
+
 
 def repCols(cols, DATA):
     cols = deepcopy(cols)
     for col in cols:
         col[len(col) - 1] = col[0] + ":" + col[len(col) - 1]
         for j in range(1, len(col)):
-            col[j-1] = col[j]
+            col[j - 1] = col[j]
         col.pop()
-    first_col = ['Num' + str(k+1) for k in range(len(cols[1])-1)]
+    first_col = ['Num' + str(k + 1) for k in range(len(cols[1]) - 1)]
     first_col.append('thingX')
     cols.insert(0, first_col)
     return DATA(cols)
+
 
 def repRows(t, DATA, rows):
     rows = deepcopy(rows)
@@ -235,5 +372,14 @@ def repRows(t, DATA, rows):
             row.append('thingX')
         else:
             u = t['rows'][- n]
-            row.append(u[len(u) - 1])    
-    return  DATA(rows)
+            row.append(u[len(u) - 1])
+    return DATA(rows)
+
+
+def repgrid(sFile, DATA):
+    t = dofile(sFile)
+    rows = repRows(t, DATA, transpose(t['cols']))
+    cols = repCols(t['cols'], DATA)
+    show(rows.cluster(), "mid", rows.cols.all, 1)
+    show(cols.cluster(), "mid", cols.cols.all, 1)
+    repPlace(rows)

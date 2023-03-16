@@ -1,4 +1,5 @@
 from misc import *
+import misc
 from row import ROW
 from col import COL
 from config import *
@@ -7,22 +8,34 @@ import math
 
 
 class DATA:
+    """
+        The DATA class is used to act as a container for the information in ROW type objects but is summarized in the
+        form of COL type objects.
+    """
+
     def __init__(self, src):
         """
-        Initializing function for data class object.
-        A container for self.rows to be summarized in self.cols
+            Constructor for creating a DATA type object
+
+            Parameters
+            ----------
+            src : str : The path to the File whose data needs to be added into the DATA object
         """
         self.rows = []
         self.cols = None
         if isinstance(src, str):
-            csv(src, self.add)
+            misc.csv(src, self.add)
         else:
             for i in src:
                 self.add(i)
 
     def add(self, t):
         """
-        Add a new row and update the column headers
+            Function for adding a new ROW type object and appending the column headers of the DATA object
+
+            Parameters
+            ----------
+            t : list : The data that needs to be appended as a new row or for updating the column headers.
         """
         if self.cols:
             if isinstance(t, list):
@@ -32,22 +45,31 @@ class DATA:
         else:
             self.cols = COL(t)
 
-    def clone(self, init = {}):
+    def clone(self, init={}):
         """
-        For cloning the DATA object with the same structure as init
+            Creates and Returns another data object that is a copy of the current DATA object.
+
+            Returns
+            -------
+            data : DATA : A clone of the self DATA object
         """
         data = DATA([self.cols.names])
         for x in self.rows or []:
             data.add(x)
         return data
 
-    def stats(self, cols=None, nPlaces=None, what=None,):
+    def stats(self, cols=None, nPlaces=None, what=None):
         """
-        Function for returning a certain attribute or certain stats
-        for a column in data
+            Returns either the 'div' stats or the 'mid' stats based on the 'what' argument passed.
+
+            Parameters
+            ----------
+            cols : list : The sequence object from which the datas will be taken from - self.cols.y
+            nPlaces : int : The number of places that the stats must be rounded off to.
+            what : str : The argument passed which decided which stat must be returned ("mid" or "div")
         """
 
-        def fun(k, col):
+        def fun(_, col):
             if what == "div":
                 value = col.div()
             if what == "mid":
@@ -55,13 +77,21 @@ class DATA:
 
             return col.rnd(value, nPlaces), col.txt
 
-        return kap(cols or self.cols.y, fun)
+        return misc.kap(cols or self.cols.y, fun)
 
-
-    def dist(self, row1, row2, cols=None, n=None, d=None):
+    def dist(self, row1, row2, cols=None):
         """
-        Function for returning the distance between two rows.
-        Returns a float which is the distance between row 1 and row 2
+            Function for returning the distance between two rows.
+
+            Parameters
+            ----------
+            row1 : ROW : The first row from which distance must be calculated from
+            row2 : ROW : The second row from which distance must be calculated from
+            cols : COL : The Column that holds the location of the rows
+
+            Returns
+            -------
+                float : The distance between row 1 and row 2
         """
         n, d = 0, 0
         cols = cols if cols else self.cols.x
@@ -72,7 +102,13 @@ class DATA:
 
     def around(self, row1, rows=None, cols=None):
         """
-        Sorting rows by the distance to row1
+            Function for sorting  rows by the distance to row1
+
+            Parameters
+            ----------
+            row1 : ROW : The ROW from which the distance is calculated from
+            rows : list[ROW] : The list of rows which need to be sorted. Takes 'self.rows' if nothing is mentioned
+            cols : COL : The COL object to manage rows
         """
 
         def func(row2):
@@ -82,44 +118,70 @@ class DATA:
 
     def half(self, rows=None, cols=None, above=None):
         """
-        Divides the data with 2 points
+            Divides the data with 2 points
+
+            Parameters
+            ----------
+            rows : list[ROW] : The list of rows that need to be halved
+            cols : COL : COL object to store the ROW data
+            above : ROW : The row above which it must be halved.
         """
 
-        def dist(row1,row2):
-            return self.dist(row1,row2,cols)
+        def dist(row1, row2):
+            return self.dist(row1, row2, cols)
+
         rows = rows or self.rows
-        some = many(rows,the['Sample'])
-        A    = above or any(some)
-        B    = self.around(A,some)[int(the['Far'] * len(rows))//1]['row']
-        c    = dist(A,B)
+        some = misc.many(rows, the['Sample'])
+        A = above or any(some)
+        B = self.around(A, some)[int(the['Far'] * len(rows)) // 1]['row']
+        c = dist(A, B)
         left, right = [], []
+
         def project(row):
-            return {'row' : row, 'dist' : cosine(dist(row,A), dist(row,B), c)}
-        for n,tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
-            if n < len(rows)//2:
+            return {'row': row, 'dist': cosine(dist(row, A), dist(row, B), c)}
+
+        for n, tmp in enumerate(sorted(list(map(project, rows)), key=itemgetter('dist'))):
+            if n < len(rows) // 2:
                 left.append(tmp['row'])
                 mid = tmp['row']
             else:
                 right.append(tmp['row'])
         return left, right, A, B, mid, c
 
-    def cluster(self, rows=None, cols=None, above=None):
+    def cluster(self, rows=None, min=None, cols=None, above=None):
         """
-        Returns rows recursively halved
+            Returns rows recursively halved
+
+            Parameters
+            ---------
+            rows : list[ROW] : The list of ROW objects for which the better half must be returned
+            min : int : The minimum number of clusters
+            cols : COL : The COL object to hold ROW values
+            above : ROW : The row around which clustering is formed
         """
         rows = rows or self.rows
+        min = min or len(rows) ** the["min"]
         cols = cols or self.cols.x
         node = {'data': self.clone(rows)}
 
-        if len(rows) >=2:
+        if len(rows) > 2 * min:
             left, right, node['A'], node['B'], node["mid"], _ = self.half(rows, cols, above)
-            node['left'] = self.cluster(left, cols, node['A'])
-            node['right'] = self.cluster(right, cols, node['B'])
+            node['left'] = self.cluster(left, min, cols, node['A'])
+            node['right'] = self.cluster(right, min, cols, node['B'])
         return node
 
     def better(self, row1, row2):
         """
-        Checks and returns if row1 dominates
+            Checks if the ROW1 will dominate row2
+
+            Parameters
+            ----------
+            row1 : ROW : The first row to check if it dominates the second
+            row2 : ROW : The second row which is used as benchmark for checking if dominated by first row
+
+            Returns
+            -------
+            bool : Checks if s1/len(ys) < s2/len(ys). This way we will know if row1 dominates row2 or not
         """
         s1, s2 = 0, 0
         ys = self.cols.y
@@ -132,7 +194,14 @@ class DATA:
 
     def sway(self, rows=None, min=None, cols=None, above=None):
         """
-        Returns the better half recursively
+            Returns the better half recursively
+
+            Parameters
+            ---------
+            rows : list[ROW] : The list of ROW objects for which the better half must be returned
+            min : int : The minimum number of clusters
+            cols : COL : The COL object to hold ROW values
+            above : ROW : The chose row around which clustering is formed
         """
         rows = rows or self.rows
         min = min or len(rows) ** the['min']
@@ -145,6 +214,9 @@ class DATA:
             node['left'] = self.sway(left, min, cols, node['A'])
         return node
 
-    def furthest(self, row1, rows = None, cols = None):
-        t=self.around(row1,rows,cols)
+    def furthest(self, row1, rows=None, cols=None):
+        """
+            This sorts other rows based on the distance to row
+        """
+        t = self.around(row1, rows, cols)
         return t[len(t) - 1]
