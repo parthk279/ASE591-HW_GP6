@@ -197,3 +197,67 @@ def repPlace(data):
     print('')
     for y in range(1,maxy+1):
         print(' '.join(g[y].values()))
+
+def showTree(node, what, cols, nPlaces, lvl = 0):
+  if node:
+    print('|.. ' * lvl + '[' + str(len(node['data'].rows)) + ']' + '  ', end = '')
+    if not node.get('left') or lvl==0:
+        print(node['data'].stats("mid",node['data'].cols.y,nPlaces))
+    else:
+        print('')
+    showTree(node.get('left'), what,cols, nPlaces, lvl+1)
+    showTree(node.get('right'), what,cols,nPlaces, lvl+1)
+
+def bins(cols,rowss):
+    out = []
+    for col in cols:
+        ranges = {}
+        for y,rows in rowss.items():
+            for row in rows:
+                x = row.cells[col.at]
+                if x != "?":
+                    k = int(bin(col,x))
+                    if not k in ranges:
+                        ranges[k] = RANGE(col.at,col.txt,x)
+                    extend(ranges[k], x, y)
+        ranges = list(dict(sorted(ranges.items())).values())
+        r = ranges if isinstance(col, SYM) else mergeAny(ranges)
+        out.append(r)
+    return out
+
+def bin(col,x):
+    if x=="?" or isinstance(col, SYM):
+        return x
+    tmp = (col.hi - col.lo)/(the['bins'] - 1)
+    return  1 if col.hi == col.lo else math.floor(x/tmp + .5)*tmp
+
+def merge(col1,col2):
+  new = deepcopy(col1)
+  if isinstance(col1, SYM):
+      for n in col2.has:
+        new.add(n)
+  else:
+    for n in col2.has:
+        new.add(new,n)
+    new.lo = min(col1.lo, col2.lo)
+    new.hi = max(col1.hi, col2.hi) 
+  return new      
+
+def cliffsDelta(ns1,ns2):
+    if len(ns1) > 256:
+        ns1 = many(ns1,256)
+    if len(ns2) > 256:
+        ns2 = many(ns2,256)
+    if len(ns1) > 10*len(ns2):
+        ns1 = many(ns1,10*len(ns2))
+    if len(ns2) > 10*len(ns1):
+        ns2 = many(ns2,10*len(ns1))
+    n,gt,lt = 0,0,0
+    for x in ns1:
+        for y in ns2:
+            n = n + 1
+            if x > y:
+                gt = gt + 1
+            if x < y:
+                lt = lt + 1
+    return abs(lt - gt)/n > the['cliffs']  
