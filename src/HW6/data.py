@@ -176,3 +176,24 @@ class DATA:
                 tmp.append({'range':range, 'max':len(ranges),'val': v(range['y'].has)})
         rule,most=firstN(sorted(tmp, key=itemgetter('val')),score)
         return rule,most
+    
+    def showRule(self,rule):
+        def pretty(range):
+            return range['lo'] if range['lo']==range['hi'] else [range['lo'], range['hi']]
+        def merge(t0):
+            t,j =[],1
+            while j<=len(t0):
+                left = t0[j-1]
+                if j < len(t0):
+                    right = t0[j]
+                else:
+                    right = None
+                if right and left['hi'] == right['lo']:
+                    left['hi'] = right['hi']
+                    j=j+1
+                t.append({'lo':left['lo'], 'hi':left['hi']})
+                j=j+1
+            return t if len(t0)==len(t) else merge(t) 
+        def merges(attr,ranges):
+            return list(map(pretty,merge(sorted(ranges,key=itemgetter('lo'))))),attr
+        return dkap(rule,merges)
