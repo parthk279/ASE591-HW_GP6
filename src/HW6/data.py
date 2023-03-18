@@ -145,7 +145,7 @@ class DATA:
             node['left'] = self.sway(left, min, cols, node['A'])
         return node
 
-        def tree(self, rows = None , min = None, cols = None, above = None):
+    def tree(self, rows = None , min = None, cols = None, above = None):
         rows = rows or self.rows
         min  = min or len(rows)**the['min']
         cols = cols or self.cols.x
@@ -155,3 +155,24 @@ class DATA:
             node['left']  = self.tree(left,  min, cols, node['A'])
             node['right'] = self.tree(right, min, cols, node['B'])
         return node
+    
+     def xpln(self,best,rest):
+        tmp,maxSizes = [],{}
+        def v(has):
+            return value(has, len(best.rows), len(rest.rows), "best")
+        def score(ranges):
+            rule = self.RULE(ranges,maxSizes)
+            if rule:
+                print(self.showRule(rule))
+                bestr= self.selects(rule, best.rows)
+                restr= self.selects(rule, rest.rows)
+                if len(bestr) + len(restr) > 0: 
+                    return v({'best': len(bestr), 'rest':len(restr)}),rule
+        for ranges in bins(self.cols.x,{'best':best.rows, 'rest':rest.rows}):
+            maxSizes[ranges[1]['txt']] = len(ranges)
+            print("")
+            for range in ranges:
+                print(range['txt'], range['lo'], range['hi'])
+                tmp.append({'range':range, 'max':len(ranges),'val': v(range['y'].has)})
+        rule,most=firstN(sorted(tmp, key=itemgetter('val')),score)
+        return rule,most
