@@ -1,5 +1,5 @@
 import sys, re, math
-from test_all_HW3 import *
+from test_all_HW6 import *
 from misc import *
 from config import *
 
@@ -33,4 +33,11 @@ if __name__ == "__main__":
     eg("csv", "testing CSV Function", test_csv)
     eg("data", "testing DATA for reading csv", test_data)
     eg("stats", "returning statistics from DATA", test_stats)
+    eg("clone", "replicate structure of a DATA", test_clone)
+    eg('cliffs', 'start tests', test_cliffs)
+    eg('dist', 'distance test', test_dist)
+    eg('bins', 'find deltas between best and rest', test_bins)
+    eg('xpln', 'explore explanation sets', test_xpln)
+    eg('tree', 'make snd show tree of clusters', test_tree)
+    eg('sway', 'optimizing', test_sway)
     main()

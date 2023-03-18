@@ -22,5 +22,5 @@ help = '''USAGE:   python main.py [OPTIONS] [-g ACTION]
     -S  --Sample  sampling data size     = 512
     '''
 Seed = 937162211
-
+b4=[]
 n = 0

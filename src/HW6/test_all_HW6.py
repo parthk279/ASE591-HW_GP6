@@ -125,7 +125,7 @@ def test_optimize():
     data = DATA(the['file'])
     show(data.sway(),'mid',data.cols.y,1)
     
- def test_cliffs():
+def test_cliffs():
     assert(False == cliffsDelta( [8,7,6,2,5,8,7,3],[8,7,6,2,5,8,7,3]))
     assert(True  == cliffsDelta( [8,7,6,2,5,8,7,3], [9,9,7,8,10,9,6])) 
     t1,t2=[],[]
