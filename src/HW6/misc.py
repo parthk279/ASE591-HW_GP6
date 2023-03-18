@@ -138,6 +138,12 @@ def kap(iterable, fun):
         result[index or len(result)] = i
     return result
 
+def dkap(t, fun):
+    u = {}
+    for k,v in t.items():
+        v, k = fun(k,v) 
+        u[k or len(u)] = v
+    return u
 
 def push(t, x):
     t.append(x)
