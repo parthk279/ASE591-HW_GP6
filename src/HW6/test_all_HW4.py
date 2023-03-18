@@ -124,3 +124,29 @@ def test_cluster():
 def test_optimize():
     data = DATA(the['file'])
     show(data.sway(),'mid',data.cols.y,1)
+    
+ def test_cliffs():
+    assert(False == cliffsDelta( [8,7,6,2,5,8,7,3],[8,7,6,2,5,8,7,3]))
+    assert(True  == cliffsDelta( [8,7,6,2,5,8,7,3], [9,9,7,8,10,9,6])) 
+    t1,t2=[],[]
+    for i in range(1,1000+1):
+        t1.append(rand(0,1))
+    for i in range(1,1000+1):
+        t2.append(rand(0,1)**.5)
+    assert(False == cliffsDelta(t1,t1)) 
+    assert(True  == cliffsDelta(t1,t2)) 
+    diff,j=False,1.0
+    while not diff:
+        def function(x):
+            return x*j
+        t3=list(map(function, t1))
+        diff=cliffsDelta(t1,t3)
+        print(">",rnd(j),diff) 
+        j=j*1.025
+        
+def test_dist():
+    data = DATA(the['file'])
+    num  = NUM()
+    for row in data.rows:
+        num.add(data.dist(row, data.rows[1]))
+    print({'lo' : num.lo, 'hi' : num.hi, 'mid' : rnd(num.mid()), 'div' : rnd(num.div())})   
