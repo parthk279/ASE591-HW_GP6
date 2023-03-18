@@ -144,3 +144,14 @@ class DATA:
                 left, right, node['A'], node['B'] = right, left, node['B'], node['A']
             node['left'] = self.sway(left, min, cols, node['A'])
         return node
+
+        def tree(self, rows = None , min = None, cols = None, above = None):
+        rows = rows or self.rows
+        min  = min or len(rows)**the['min']
+        cols = cols or self.cols.x
+        node = { 'data' : self.clone(rows) }
+        if len(rows) >= 2*min:
+            left, right, node['A'], node['B'], _, _ = self.half(rows,cols,above)
+            node['left']  = self.tree(left,  min, cols, node['A'])
+            node['right'] = self.tree(right, min, cols, node['B'])
+        return node
