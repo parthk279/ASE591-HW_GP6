@@ -197,3 +197,32 @@ class DATA:
         def merges(attr,ranges):
             return list(map(pretty,merge(sorted(ranges,key=itemgetter('lo'))))),attr
         return dkap(rule,merges)
+    
+    def betters(self,n):
+        tmp=sorted(self.rows, key=lambda row: self.better(row, self.rows[self.rows.index(row)-1]))
+        return  n and tmp[0:n], tmp[n+1:]  or tmp
+
+    def selects(self, rule, rows):
+        def disjunction(ranges, row):
+            for range in ranges:
+                lo, hi, at = range['lo'], range['hi'], range['at']
+                x = row.cells[at]
+                if x == "?":
+                    return True
+                if lo == hi and lo == x:
+                    return True
+                if lo <= x and x < hi:
+                    return True
+            return False
+
+        def conjunction(row):
+            for ranges in rule.values():
+                if not disjunction(ranges, row):
+                    return False
+            return True
+
+        def function(r):
+            if conjunction(r):
+                return r
+
+        return list(map(function, rows))
