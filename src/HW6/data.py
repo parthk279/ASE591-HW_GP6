@@ -156,12 +156,12 @@ class DATA:
             node['right'] = self.tree(right, min, cols, node['B'])
         return node
     
-     def xpln(self,best,rest):
+    def xpln(self,best,rest):
         tmp,maxSizes = [],{}
         def v(has):
             return value(has, len(best.rows), len(rest.rows), "best")
         def score(ranges):
-            rule = self.RULE(ranges,maxSizes)
+            rule = self.RULE_SIZE(ranges,maxSizes)
             if rule:
                 print(self.showRule(rule))
                 bestr= self.selects(rule, best.rows)
@@ -197,6 +197,13 @@ class DATA:
         def merges(attr,ranges):
             return list(map(pretty,merge(sorted(ranges,key=itemgetter('lo'))))),attr
         return dkap(rule,merges)
+    
+    def RULE_SIZE(self,ranges,maxSize):
+        t={}
+        for range in ranges:
+            t[range['txt']] = t.get(range['txt']) or []
+            t[range['txt']].append({'lo' : range['lo'],'hi' : range['hi'],'at':range['at']})
+        return prune(t, maxSize)
     
     def betters(self,n):
         tmp=sorted(self.rows, key=lambda row: self.better(row, self.rows[self.rows.index(row)-1]))

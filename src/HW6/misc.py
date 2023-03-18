@@ -1,4 +1,4 @@
-import sys, re
+import sys, re, copy
 from numerics import *
 from config import *
 from operator import itemgetter
@@ -180,6 +180,9 @@ def show(node, what, cols, n_places, lvl=0):
         show(node.get('left'), what, cols, n_places, lvl + 1)
         show(node.get('right'), what, cols, n_places, lvl + 1)
 
+def deepcopy(t):
+    return copy.deepcopy(t)
+
 def repPlace(data):
     n,g = 20,{}
     for i in range(1, n+1):
@@ -320,6 +323,7 @@ def mergeAny(ranges0):
         ranges1.append(left)
         j = j+1
     return noGaps(ranges0) if len(ranges0)==len(ranges1) else mergeAny(ranges1)
+
 def firstN(sortedRanges,scoreFun):
     print("")
     def function(r):
