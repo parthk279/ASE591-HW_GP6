@@ -1,4 +1,4 @@
-import sys, re, copy
+import sys, re, math, copy, json, random
 from numerics import *
 from config import *
 from operator import itemgetter
@@ -344,3 +344,22 @@ def firstN(sortedRanges,scoreFun):
             out,most = rule,tmp
     return out,most
 
+def gaussian(mu, sd):
+    mu, sd = mu or 0, sd or 1
+    sq, pi, log, cos, r = math.sqrt, math.pi, math.log, math.cos, random.random
+    return mu + sd * sq(-2 * log(r())) * cos(2 * pi * r())
+
+def cliffsDelta(ns1,ns2):
+    if len(ns1) > 128:
+        ns1 = samples(ns1,128)
+    if len(ns2) > 128:
+        ns2 = samples(ns2,128)
+    n,gt,lt = 0,0,0
+    for x in ns1:
+        for y in ns2:
+            n = n + 1
+            if x > y:
+                gt = gt + 1
+            if x < y:
+                lt = lt + 1
+    return abs(lt - gt)/n <= the['cliff']
