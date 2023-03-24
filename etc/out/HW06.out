@@ -1,0 +1,133 @@
+✅pass the
+✅pass sym 
+✅pass num 
+✅pass rand
+✅pass csv
+✅pass data
+{'Acc+': 15.57, 'Mpg+': 23.85}
+{'Acc+': 15.57, 'Mpg+': 23.85}
+✅pass clone
+> 1.0 False
+> 1.026 False
+> 1.051 False
+> 1.077 False
+> 1.104 False
+> 1.132 False
+> 1.16 False
+> 1.189 True
+✅pass cliffs
+{'lo': 0.0, 'hi': 0.8556760399959602, 'mid': 0.536, 'div': 0.0}
+✅pass dist
+all    {'best': 12, 'rest': 48}
+
+Clndrs -inf 4 0.585 {'best': 11, 'rest': 25}
+Clndrs 4 5 0.067 {'best': 1, 'rest': 1}
+Clndrs 5 inf 0.0 {'rest': 11}
+
+Volume -inf 163 0.089 {'rest': 7, 'best': 2}
+Volume 163 183 0.084 {'best': 1}
+Volume 183 inf 0.0 {'rest': 4}
+
+HpX -inf 92 0.232 {'best': 4, 'rest': 7}
+HpX 92 inf 0.0 {'rest': 13}
+
+Lbs- -inf 3609 0.096 {'rest': 6, 'best': 2}
+Lbs- 3609 inf 0.0 {'rest': 5}
+
+Model -inf 81 0.031 {'rest': 7, 'best': 1}
+Model 81 inf 0.0 {'rest': 2}
+
+origin 1 1 0.297 {'best': 7, 'rest': 27}
+origin 2 2 0.298 {'best': 5, 'rest': 8}
+origin 3 3 0.0 {'rest': 13}
+✅pass bins
+
+Clndrs -inf inf
+
+Volume -inf 318
+Volume 318 360
+Volume 360 inf
+
+HpX -inf 150
+HpX 150 inf
+
+Lbs- -inf 4498
+Lbs- 4498 inf
+
+Model -inf 76
+Model 76 inf
+
+origin 1 1
+origin 2 2
+origin 3 3
+
+Volume 360 inf 0.0 {'rest': 3}
+HpX 150 inf 0.0 {'rest': 3}
+Model 76 inf 0.0 {'rest': 6}
+origin 2 2 0.0 {'rest': 8}
+origin 3 3 0.0 {'rest': 12}
+Clndrs -inf inf 0.01 {'rest': 31, 'best': 1}
+Model -inf 76 0.026 {'rest': 9, 'best': 1}
+Volume -inf 318 0.031 {'rest': 7, 'best': 1}
+Lbs- -inf 4498 0.038 {'rest': 5, 'best': 1}
+Volume 318 360 0.067 {'best': 1, 'rest': 1}
+Lbs- 4498 inf 0.067 {'best': 1, 'rest': 1}
+HpX -inf 150 0.158 {'rest': 7, 'best': 3}
+origin 1 1 0.632 {'best': 12, 'rest': 28}
+
+{'Volume': [[318, 360]]}
+{'Volume': [[318, 360]], 'Lbs-': [[4498, inf]]}
+{'Volume': [[318, 360]], 'Lbs-': [[4498, inf]], 'HpX': [[-inf, 150]]}
+{'Volume': [[318, 360]], 'Lbs-': [[4498, inf]], 'HpX': [[-inf, 150]], 'origin': [1]}
+explain= {'Volume': [[318, 360]]}
+all                {'Acc+': 15.57, 'Mpg+': 23.85} {'Acc+': 0.0, 'Mpg+': 0.0}
+sway with 6 evals {'Acc+': 16.66, 'Mpg+': 17.5} {'Acc+': 0.0, 'Mpg+': 0.0}
+xpln on 6 evals {'Acc+': 13.26, 'Mpg+': 15.0} {'Acc+': 0.0, 'Mpg+': 0.0}
+sort with 398 evals {'Acc+': 12.63, 'Mpg+': 10.0} {'Acc+': 0.0, 'Mpg+': 0.0}
+✅pass xlpn
+[398]  {'Acc+': 15.6, 'Mpg+': 23.9}
+|.. [199]  
+|.. |.. [99]  
+|.. |.. |.. [49]  
+|.. |.. |.. |.. [24]  {'Acc+': 16.9, 'Mpg+': 35.5}
+|.. |.. |.. |.. [25]  {'Acc+': 16.8, 'Mpg+': 35.7}
+|.. |.. |.. [50]  
+|.. |.. |.. |.. [25]  {'Acc+': 16.9, 'Mpg+': 28.4}
+|.. |.. |.. |.. [25]  {'Acc+': 16.0, 'Mpg+': 31.2}
+|.. |.. [100]  
+|.. |.. |.. [50]  
+|.. |.. |.. |.. [25]  {'Acc+': 15.3, 'Mpg+': 24.9}
+|.. |.. |.. |.. [25]  {'Acc+': 17.5, 'Mpg+': 26.4}
+|.. |.. |.. [50]  
+|.. |.. |.. |.. [25]  {'Acc+': 17.2, 'Mpg+': 29.6}
+|.. |.. |.. |.. [25]  {'Acc+': 15.9, 'Mpg+': 26.0}
+|.. [199]  
+|.. |.. [99]  
+|.. |.. |.. [49]  
+|.. |.. |.. |.. [24]  {'Acc+': 13.5, 'Mpg+': 12.6}
+|.. |.. |.. |.. [25]  {'Acc+': 12.6, 'Mpg+': 12.4}
+|.. |.. |.. [50]  
+|.. |.. |.. |.. [25]  {'Acc+': 12.5, 'Mpg+': 16.8}
+|.. |.. |.. |.. [25]  {'Acc+': 13.0, 'Mpg+': 17.6}
+|.. |.. [100]  
+|.. |.. |.. [50]  
+|.. |.. |.. |.. [25]  {'Acc+': 16.9, 'Mpg+': 19.6}
+|.. |.. |.. |.. [25]  {'Acc+': 16.3, 'Mpg+': 23.6}
+|.. |.. |.. [50]  
+|.. |.. |.. |.. [25]  {'Acc+': 16.9, 'Mpg+': 21.3}
+|.. |.. |.. |.. [25]  {'Acc+': 15.8, 'Mpg+': 20.4}
+✅pass tree
+
+all  {'Acc+': 15.57, 'Mpg+': 23.85}
+     {'Acc+': 0.0, 'Mpg+': 0.0}
+
+best {'Acc+': 16.06, 'Mpg+': 30.84}
+     {'Acc+': 0.0, 'Mpg+': 0.0}
+
+rest {'Acc+': 16.19, 'Mpg+': 25.63}
+     {'Acc+': 0.0, 'Mpg+': 0.0}
+✅pass sway
+199 199
+l {'Acc+': 15.89, 'Mpg+': 23.62}
+r {'Acc+': 15.25, 'Mpg+': 24.08}
+✅pass half
