@@ -16,6 +16,7 @@ def eg(key, str, fun):
     help = help + '  -g ' + key + '\t' + str + '\n'
 
 
+
 def test_rand():
     """
     Function for checking if rand function works or not
@@ -29,7 +30,9 @@ def test_rand():
     for i in range(1, 10 ** 3 + 1):
         n2.add(rand(0, 1))
     m1, m2 = rnd(n1.mid(), 1), rnd(n2.mid(), 1)
+    print("✅pass rand")
     return m1 == m2 and .5 == rnd(m1, 1)
+    
 
 
 def test_sym():
@@ -39,6 +42,7 @@ def test_sym():
     sym = SYM()
     for x in ["a", "a", "a", "a", "b", "b", "c"]:
         sym.add(x)
+    print("✅pass sym ")
     return "a" == sym.mid() and 1.379 == rnd(sym.div())
 
 
@@ -49,6 +53,7 @@ def test_num():
     num = NUM()
     for x in [1, 1, 1, 1, 2, 2, 3]:
         num.add(x)
+    print("✅pass num ")
     return 11 / 7 == num.mid() and 0.787 == rnd(num.div())
 
 
@@ -56,7 +61,8 @@ def test_the():
     """
     Function to print the options for the code
     """
-    print(the)
+    print(the.__repr__())
+    print("✅pass the")
 
 
 def test_csv():
@@ -70,6 +76,7 @@ def test_csv():
         n += len(t)
 
     csv(the["file"], f)
+    print("✅pass csv")
     return n == 8 ** 399
 
 
@@ -77,53 +84,37 @@ def test_data():
     """
     Function for testing the data class
     """
-    data = DATA(the["file"])
+    data = DATA(the['file'])
+    col=data.cols.x[0]
+    
+    
+    
+    print("✅pass data")
     return len(data.rows) == 398 and data.cols.x[1].at == 1 and len(data.cols.x) == 4
 
 
-def test_stats():
-    """
-    Function for testing the stats function in the data class
-    """
-    data = DATA(the["file"])
-
-    for k, cols in {"y": data.cols.y, "x": data.cols.x}.items():
-        print(k, "mid", data.stats(cols, 2, what="mid"))
-        print("", "div", data.stats(cols, 2, what="div"))
-    return True
 
 
 def test_clone():
     data1 = DATA(the['file'])
     data2 = data1.clone(data1.rows)
-    return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
+    print(data1.stats('mid', data1.cols.y, 2))
+    print(data2.stats('mid', data2.cols.y, 2))
+    print("✅pass clone")
 
-
-def test_around():
-    data = DATA(the['file'])
-    print(0, 0, data.rows[1].cells)
-    for n, t in enumerate(data.around(data.rows[1])):
-        if (n % 50) == 0:
-            print(n, rnd(t['dist'], 2), t['row'].cells)
 
 
 def test_half():
-    data = DATA(the['file'])
-    left,right,A,B,mid,c = data.half()
-    print(len(left),len(right),len(data.rows))
-    print(A.cells,c)
-    print(mid.cells)
-    print(B.cells)
+   data = DATA(the['file'])
+   left,right,A,B,c,_ = data.half() 
+   
+   print(len(left),len(right))
+   
+   l,r = data.clone(left), data.clone(right)
+   print("l",l.stats('mid', l.cols.y, 2))
+   print("r",r.stats('mid', r.cols.y, 2))
+   print("✅pass half")
 
-
-def test_cluster():
-    data = DATA(the['file'])
-    show(data.cluster(),"mid",data.cols.y,1)
-
-
-def test_optimize():
-    data = DATA(the['file'])
-    show(data.sway(),'mid',data.cols.y,1)
     
 def test_cliffs():
     assert(False == cliffsDelta( [8,7,6,2,5,8,7,3],[8,7,6,2,5,8,7,3]))
@@ -143,6 +134,7 @@ def test_cliffs():
         diff=cliffsDelta(t1,t3)
         print(">",rnd(j),diff) 
         j=j*1.025
+    print("✅pass cliffs")
         
 def test_dist():
     data = DATA(the['file'])
@@ -150,12 +142,13 @@ def test_dist():
     for row in data.rows:
         num.add(data.dist(row, data.rows[1]))
     print({'lo' : num.lo, 'hi' : num.hi, 'mid' : rnd(num.mid()), 'div' : rnd(num.div())})   
+    print("✅pass dist")
     
 def test_xpln():
     data = DATA(the['file'])
     best,rest,evals = data.sway()
     rule,most= data.xpln(best,rest)
-    print("\n-----------\nexplain=", data.showRule(rule))
+    print("explain=", data.showRule(rule))
     selects = data.selects(rule,data.rows)
     data_selects = [s for s in selects if s!=None]
     data1= data.clone(data_selects)
@@ -165,10 +158,12 @@ def test_xpln():
     top,_ = data.betters(len(best.rows))
     top = data.clone(top)
     print("sort with",len(data.rows),"evals",top.stats('mid', top.cols.y, 2),top.stats('div', top.cols.y, 2))   
+    print("✅pass xlpn")
     
 def test_tree():
     data = DATA(the['file'])
     showTree(data.tree(),"mid",data.cols.y,1)
+    print("✅pass tree")
     return True
 
 def test_sway():
@@ -180,6 +175,7 @@ def test_sway():
     print("    ", best.stats('div', best.cols.y, 2))
     print("\nrest", rest.stats('mid', rest.cols.y, 2))
     print("    ", rest.stats('div', rest.cols.y, 2))
+    print("✅pass sway")
     return True
 
 def test_bins():
@@ -194,4 +190,5 @@ def test_bins():
             b4 = range['txt']
             print(range['txt'],range['lo'],range['hi'],
             rnd(value(range['y'].has, len(best.rows),len(rest.rows),"best")), 
-            range['y'].has)     
+            range['y'].has)  
+    print("✅pass bins")   

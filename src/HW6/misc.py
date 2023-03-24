@@ -3,7 +3,8 @@ from numerics import *
 from config import *
 from operator import itemgetter
 import os
-
+from sym import SYM
+import math
 
 def csv(fileName, fun):
     """
@@ -133,9 +134,9 @@ def kap(iterable, fun):
     """
     result = {}
     for i in iterable:
-        index = iterable.index(i)
-        i, index = fun(index, i)
-        result[index or len(result)] = i
+        s1 = iterable.index(i)
+        i, s1 = fun(s1,i) 
+        result[s1 or len(result)] = i
     return result
 
 def dkap(t, fun):
@@ -167,7 +168,7 @@ def many(iterable, n):
     return u
 
 
-def show(node, what, cols, n_places, lvl=0):
+def show(node, wat, cols, n_places, lvl=0):
     """
     Prints the tree
     """
@@ -215,14 +216,15 @@ def bins(cols,rowss):
     out = []
     for col in cols:
         ranges = {}
-        for y,rows in rowss.items():
+
+        for y, rows in rowss.items():
             for row in rows:
                 x = row.cells[col.at]
                 if x != "?":
-                    k = int(bin(col,x))
-                    if not k in ranges:
-                        ranges[k] = RANGE(col.at,col.txt,x)
+                    k = bin(col, x)
+                    ranges[k] = ranges.get(k, RANGE(col.at, col.txt, x))
                     extend(ranges[k], x, y)
+
         ranges = list(dict(sorted(ranges.items())).values())
         r = ranges if isinstance(col, SYM) else mergeAny(ranges)
         out.append(r)
@@ -231,8 +233,8 @@ def bins(cols,rowss):
 def bin(col,x):
     if x=="?" or isinstance(col, SYM):
         return x
-    tmp = (col.hi - col.lo)/(the['bins'] - 1)
-    return  1 if col.hi == col.lo else math.floor(x/tmp + .5)*tmp
+    t1 = (col.hi - col.lo)/(the['bins'] - 1)
+    return  1 if col.hi == col.lo else math.floor(x/t1 + .5)*t1
 
 def merge(col1,col2):
   new = deepcopy(col1)
