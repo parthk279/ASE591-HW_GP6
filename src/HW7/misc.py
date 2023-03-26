@@ -233,19 +233,7 @@ def bin(col,x):
         return x
     tmp = (col.hi - col.lo)/(the['bins'] - 1)
     return  1 if col.hi == col.lo else math.floor(x/tmp + .5)*tmp
-
-def merge(col1,col2):
-  new = deepcopy(col1)
-  if isinstance(col1, SYM):
-      for n in col2.has:
-        new.add(n)
-  else:
-    for n in col2.has:
-        new.add(new,n)
-    new.lo = min(col1.lo, col2.lo)
-    new.hi = max(col1.hi, col2.hi) 
-  return new      
-
+   
 def prune(rule, maxSize):
     n=0
     for txt,ranges in rule.items():
@@ -344,3 +332,38 @@ def cliffsDelta(ns1,ns2):
             if x < y:
                 lt = lt + 1
     return abs(lt - gt)/n <= the['cliff']
+
+def RX(t,s): 
+    t = sorted(t)
+    return {'name' : s or "", 'rank':0, 'n':len(t), 'show':"", 'has':t}
+
+def div(t):
+  t= t['has'] if t['has'] else t
+  return (t[ len(t)*9//10 ] - t[ len(t)*1//10 ])/2.56
+
+def mid(t):
+  t= t['has'] if t['has'] else t
+  n = (len(t)-1)//2
+  return (t[n] +t[n+1])/2 if len(t)%2==0 else t[n+1]
+
+def merge(rx1,rx2):
+    rx3 = RX([], rx1['name'])
+    rx3['has'] = rx1['has'] + rx2['has']
+    rx3['has'] = sorted(rx3['has'])
+    rx3['n'] = len(rx3['has'])
+    return rx3
+
+def rxs_sort(rxs):
+    for i,x in enumerate(rxs):
+     for j,y in enumerate(rxs):
+         if mid(x) < mid(y):
+             rxs[j],rxs[i]=rxs[i],rxs[j]
+    return rxs
+
+def scottKnot(rxs, NUM):
+  def merges(i,j):
+    out = RX([],rxs[i]['name'])
+    for k in range(i, j+1):
+        out = merge(out, rxs[j])
+    return out
+
