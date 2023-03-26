@@ -366,4 +366,32 @@ def scottKnot(rxs, NUM):
     for k in range(i, j+1):
         out = merge(out, rxs[j])
     return out
-
+  
+  def same(lo,cut,hi):
+    l= merges(lo,cut)
+    r= merges(cut+1,hi)
+    return cliffsDelta(l['has'], r['has']) and bootstrap(l['has'], r['has'], NUM)
+  
+  def recurse(lo,hi,rank):
+    b4 = merges(lo,hi)
+    best = 0
+    cut = None
+    for j in range(lo,hi+1):
+      if j < hi:
+        l   = merges(lo,  j)
+        r   = merges(j+1, hi)
+        now = (l['n']*(mid(l) - mid(b4))**2 + r['n']*(mid(r) - mid(b4))**2) / (l['n'] + r['n'])
+        if now > best:
+          if abs(mid(l) - mid(r)) >= cohen:
+            cut, best = j, now
+    if cut != None and not same(lo,cut,hi):
+      rank = recurse(lo,    cut, rank) + 1
+      rank = recurse(cut+1, hi,  rank) 
+    else:
+      for i in range(lo,hi+1):
+        rxs[i]['rank'] = rank
+    return rank
+  rxs = rxs_sort(rxs)
+  cohen = div(merges(0,len(rxs)-1)) * the['cohen']
+  recurse(0, len(rxs)-1, 1)
+  return rxs
