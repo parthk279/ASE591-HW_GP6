@@ -384,3 +384,34 @@ def scottKnot(rxs, NUM):
   cohen = div(merges(0,len(rxs)-1)) * the['cohen']
   recurse(0, len(rxs)-1, 1)
   return rxs
+def tiles(rxs):
+  lar = float('inf')
+  lo,hi = lar, float('-inf')
+  for rx in rxs: 
+    lo,hi = min(lo,rx['has'][0]), max(hi, rx['has'][len(rx['has'])-1])
+  for rx in rxs:
+    t,u = rx['has'],[]
+    
+    
+    def at(x):
+        return t[of(len(t)*x//1, len(t))]
+    def of(x,most):
+        return int(max(0, min(most, x)))
+    def pos(x):
+        return math.floor(of(the['width']*(x-lo)/(hi-lo+1E-32)//1, the['width']))
+
+    for i in range(0,the['width']+1):
+        u.append(" ")
+    a,b,c,d,e= at(.1), at(.3), at(.5), at(.7), at(.9) 
+    A,B,C,D,E= pos(a), pos(b), pos(c), pos(d), pos(e)
+    for i in range(A,B+1):
+        u[i]="-"
+    for i in range(D,E+1):
+        u[i]="-"
+    u[the['width']//2] = "|" 
+    x = []
+    u[C] = "*"
+    for i in [a,b,c,d,e]:
+        x.append(the['Fmt'].format(i))
+    rx['show'] = ''.join(u) + str(x)
+  return rxs
