@@ -1,9 +1,9 @@
 from misc import *
 from num import NUM
-from numerics import *
+import numpy as np
 from sym import SYM
 from config import *
-from data import *
+
 from main import *
 
 
@@ -14,37 +14,6 @@ def eg(key, str, fun):
     egs[key] = fun
     global help
     help = help + '  -g ' + key + '\t' + str + '\n'
-
-def test_rand():
-    """
-    Function for checking if rand function works or not
-    """
-    n1, n2 = NUM(), NUM()
-    global Seed
-    Seed = the['seed']
-    for i in range(1, 10 ** 3 + 1):
-        n1.add(rand(0, 1))
-    Seed = the['seed']
-    for i in range(1, 10 ** 3 + 1):
-        n2.add(rand(0, 1))
-    m1, m2 = rnd(n1.mid(), 1), rnd(n2.mid(), 1)
-    return m1 == m2 and .5 == rnd(m1, 1)
-
-def test_num():
-    """
-    Function for checking if the NUM class works and if div and mid functions work
-    """
-    num = NUM()
-    for x in [1, 1, 1, 1, 2, 2, 3]:
-        num.add(x)
-    return 11 / 7 == num.mid() and 0.787 == rnd(num.div())
-
-
-def test_the():
-    """
-    Function to print the options for the code
-    """
-    print(the)
 
 def test_num():
     n = NUM()
@@ -147,16 +116,52 @@ def test_tiles():
     for rx in tiles(rxs):
         print("",rx['name'],rx['show'])
 
-def test_scKt():
-    rxs = []
-    params = [
-        (10, 1), (10.1, 1), (20, 1), (30, 1), (30.1, 1), 
-        (10, 1), (10, 1), (40, 1), (40, 3), (10, 1)
-    ]
-    
-    for p in params:
-        v = [gaussian(p[0], p[1]) for _ in range(1000)]
-        rxs.append(RX(v, f"rx{len(rxs)+1}"))
 
-    for rx in tiles(scottKnot(rxs, NUM)):
-        print("",rx['rank'],rx['name'],rx['show'])
+
+
+
+
+def test_the():
+    """
+    Function to print the options for the code
+    """
+    print(the)
+
+
+def test_csv():
+    """
+    Function for testing the CSV function
+    """
+    n = 0
+
+    def f(t):
+        nonlocal n
+        n += len(t)
+
+    csv(the["file"], f)
+    return n == 8 ** 399
+def test_csv():
+    """
+    Function for testing the CSV function
+    """
+    n = 0
+
+    def f(t):
+        nonlocal n
+        n += len(t)
+
+    csv(the["file"], f)
+    return n == 8 ** 399
+
+def test_the():
+    """
+    Function to print the options for the code
+    """
+    print(the)
+
+
+def test_num():
+    n = NUM()
+    for i in range(1,10+1):
+        n.add(i)
+    print("",n.n,n.mu,n.sd)
