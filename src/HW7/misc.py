@@ -2,6 +2,8 @@ import sys, re, math, copy, json, random
 from numerics import *
 from config import *
 from operator import itemgetter
+from pathlib import Path
+from sym import SYM
 import os
 
 
@@ -360,19 +362,29 @@ def rxs_sort(rxs):
              rxs[j],rxs[i]=rxs[i],rxs[j]
     return rxs
 
+def tiles(rxs):
+  huge = float('inf')
+  lo,hi = huge, float('-inf')
+  for rx in rxs: 
+    lo,hi = min(lo,rx['has'][0]), max(hi, rx['has'][len(rx['has'])-1])
+  for rx in rxs:
+    t,u = rx['has'],[]
+    def of(x,most):
+        return int(max(0, min(most, x)))
+    
 def scottKnot(rxs, NUM):
-  def merges(i,j):
-    out = RX([],rxs[i]['name'])
-    for k in range(i, j+1):
-        out = merge(out, rxs[j])
-    return out
+    def merges(i,j):
+        out = RX([],rxs[i]['name'])
+        for k in range(i, j+1):
+            out = merge(out, rxs[j])
+        return out
   
-  def same(lo,cut,hi):
+def same(lo,cut,hi):
     l= merges(lo,cut)
     r= merges(cut+1,hi)
     return cliffsDelta(l['has'], r['has']) and bootstrap(l['has'], r['has'], NUM)
   
-  def recurse(lo,hi,rank):
+def recurse(lo,hi,rank):
     b4 = merges(lo,hi)
     best = 0
     cut = None
@@ -391,7 +403,8 @@ def scottKnot(rxs, NUM):
       for i in range(lo,hi+1):
         rxs[i]['rank'] = rank
     return rank
-  rxs = rxs_sort(rxs)
-  cohen = div(merges(0,len(rxs)-1)) * the['cohen']
-  recurse(0, len(rxs)-1, 1)
-  return rxs
+    rxs = rxs_sort(rxs)
+    cohen = div(merges(0,len(rxs)-1)) * the['cohen']
+    recurse(0, len(rxs)-1, 1)
+    return rxs
+
