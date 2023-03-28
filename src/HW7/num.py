@@ -1,5 +1,6 @@
 import math
-from numerics import *
+from misc import rnd
+from config import the
 
 
 class NUM:
@@ -12,13 +13,17 @@ class NUM:
         lo : lowest numerical entry
         hi : highest numerical entry
         """
-        self.at = at if at else 0
-        self.txt = txt if txt else ""
+        self.at = at
+        self.txt = txt
         self.n = 0
-        self.count, self.mu, self.m2 = 0, 0, 0
-        self.lo, self.hi = math.inf, -math.inf
-        self.w = -1 if "-" in self.txt else 1
-
+        self.mu = 0
+        self.m2 = 0
+        self.sd = 0
+        self.lo = float('inf')
+        self.hi = float('-inf')
+        
+        self.has = {}
+        
 
     def add(self, n):
         """
@@ -26,13 +31,19 @@ class NUM:
         Recalculates mean (mu) and std dev (m2).
         """
         if n != "?":
-            self.count += 1
+            self.n += 1
+            if self.n <= the['Max']:
+                self.has[n]= n
+            self.n += 1
+            if self.n <= the['Max']:
+                self.has[n]= n
             d = n - self.mu
-            self.mu += d / self.count
+            self.mu += d / self.n
             self.m2 += d * (n - self.mu)
-            self.lo = min(self.lo, n)
-            self.hi = max(self.hi, n)
-
+            self.sd =  0 if self.n<2 else (self.m2/(self.n - 1))**.5
+            self.lo = min(n, self.lo)
+            self.hi = max(n, self.hi)
+          
     def mid(self):
         """
         Returns the mean (mu)

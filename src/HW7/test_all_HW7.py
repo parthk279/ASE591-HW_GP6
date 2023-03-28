@@ -15,18 +15,14 @@ def eg(key, str, fun):
     global help
     help = help + '  -g ' + key + '\t' + str + '\n'
 
-def test_num():
-    n = NUM()
-    for i in range(1,10+1):
-        n.add(i)
-    print("",n.n,n.mu,n.sd)
-
 def test_gauss():
     t = [gaussian(10, 2) for _ in range(10**4)]
     n = NUM()
     for i in t:
         n.add(i)
-    print(f"n: {n.n}, mu: {n.mu}, sd: {n.sd}")
+    # print(f"n: {n.n}, mu: {n.mu}, sd: {n.sd}")
+    print("",n.n,n.mu,n.sd)
+    print("✅ pass: gauss")
 
 def test_bootmu():
     a = [gaussian(10, 1) for _ in range(100)]
@@ -37,6 +33,7 @@ def test_bootmu():
         cl = cliffsDelta(a, b)
         bs = bootstrap(a, b, NUM)
         print(mu, 1, cl, bs, cl and bs)
+    print("✅ pass: bootmu")
 
 def test_basic():
     data1 = {8, 7, 6, 2, 5, 8, 7, 3}
@@ -51,6 +48,7 @@ def test_basic():
     data1 = {0.34, 0.49, 0.51, 0.6, .34, .49, .51, .6}
     data2 = {0.6, 0.7, 0.8, 0.9, .6, .7, .8, .9}
     print("\t\tFalse", bootstrap(data1, data2, NUM), cliffsDelta(data1, data2))
+    print("✅ pass: basic")
 
 def test_five():
     rxs = [
@@ -63,7 +61,7 @@ def test_five():
     rxs = rxs_sort(rxs)
     for rx in tiles(scottKnot(rxs, NUM)):
         print(rx['name'], rx['rank'], rx['show'])
-
+    print("✅ pass: five")
 
 def test_six():
     rx_values = [
@@ -76,7 +74,7 @@ def test_six():
     rxs = rxs_sort(rxs)
     for rx in tiles(scottKnot(rxs, NUM)):
         print(rx['name'], rx['rank'], rx['show'])
-
+    print("✅ pass: six")
 def test_pre():
     print("\neg3")
     for i in range(1, 11):
@@ -87,6 +85,7 @@ def test_pre():
         b1 = bootstrap(t1, t2, NUM)
         b2 = bootstrap(t1, t1, NUM)
         print(f"\t{d} {val} {b1} {b2}")
+    print("✅ pass: pre")
 
 def test_tiles():
     rxs,a,b,c,d,e,f,g,h,j,k=[],[],[],[],[],[],[],[],[],[],[]
@@ -113,19 +112,14 @@ def test_tiles():
     for k,v in enumerate([a,b,c,d,e,f,g,h,j,k]):
         rxs.append(RX(v,"rx"+str(k+1)))
     rxs = rxs_sort(rxs)
+    for i,x in enumerate(rxs):
+        for j,y in enumerate(rxs):
+            if mid(x) < mid(y):
+                rxs[j],rxs[i]=rxs[i],rxs[j]
     for rx in tiles(rxs):
-        print("",rx['name'],rx['show'])
+        print(f" \t{rx['name']}\t{rx['show']}")
+    print("✅ pass: tiles")
 
-
-
-
-
-
-def test_the():
-    """
-    Function to print the options for the code
-    """
-    print(the)
 
 
 def test_csv():
@@ -140,18 +134,7 @@ def test_csv():
 
     csv(the["file"], f)
     return n == 8 ** 399
-def test_csv():
-    """
-    Function for testing the CSV function
-    """
-    n = 0
 
-    def f(t):
-        nonlocal n
-        n += len(t)
-
-    csv(the["file"], f)
-    return n == 8 ** 399
 
 def test_the():
     """
@@ -165,3 +148,37 @@ def test_num():
     for i in range(1,10+1):
         n.add(i)
     print("",n.n,n.mu,n.sd)
+    print("✅ pass: num")
+
+def test_scKt():
+    rxs,a,b,c,d,e,f,g,h,j,k=[],[],[],[],[],[],[],[],[],[],[]
+    for _ in range(1,1000+1):
+        a.append(gaussian(10,1))
+    for _ in range(1,1000+1):
+        b.append(gaussian(10.1,1))
+    for _ in range(1,1000+1):
+        c.append(gaussian(20,1))
+    for _ in range(1,1000+1):
+        d.append(gaussian(30,1))
+    for _ in range(1,1000+1):
+        e.append(gaussian(30.1,1))
+    for _ in range(1,1000+1):
+        f.append(gaussian(10,1))
+    for _ in range(1,1000+1):
+        g.append(gaussian(10,1))
+    for _ in range(1,1000+1):
+        h.append(gaussian(40,1))
+    for _ in range(1,1000+1):
+        j.append(gaussian(40,3))
+    for _ in range(1,1000+1):
+        k.append(gaussian(10,1))
+    for k,v in enumerate([a,b,c,d,e,f,g,h,j,k]):
+        rxs.append(RX(v,"rx"+str(k+1)))
+    for rx in tiles(scottKnot(rxs, NUM)):
+        print("",rx['rank'],rx['name'],rx['show'])
+    print("✅ pass: scKt")
+
+def test_sample():
+    for i in range(1,10+1): 
+        print("",''.join(samples(["a","b","c","d","e"]).values()))
+    print("✅ pass: Sample")

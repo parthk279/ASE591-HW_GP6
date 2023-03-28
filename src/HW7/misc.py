@@ -314,7 +314,29 @@ def firstN(sortedRanges,scoreFun):
         if tmp and tmp > most:
             out,most = rule,tmp
     return out,most
+def rnd(n, nPlaces = 3):
+    mult = 10**nPlaces
+    return math.floor(n * mult + 0.5) / mult
 
+def firstN(sortedRanges,scoreFun):
+    print("")
+    def function(r):
+        print(r['range']['txt'],r['range']['lo'],r['range']['hi'],rnd(r['val']),r['range']['y'].has)
+    _ = list(map(function, sortedRanges))
+    print()
+    first = sortedRanges[0]['val']
+    def useful(range):
+        if range['val']>.05 and range['val']> first/10:
+            return range
+    sortedRanges = [x for x in sortedRanges if useful(x)]
+    most,out = -1, -1
+    for n in range(1,len(sortedRanges)+1):
+        slice = sortedRanges[0:n]
+        slice_range = [x['range'] for x in slice]
+        tmp,rule = scoreFun(slice_range)
+        if tmp and tmp > most:
+            out,most = rule,tmp
+    return out,most
 def gaussian(mu, sd):
     mu, sd = mu or 0, sd or 1
     sq, pi, log, cos, r = math.sqrt, math.pi, math.log, math.cos, random.random
@@ -389,12 +411,7 @@ def merge(rx1,rx2):
     rx3['n'] = len(rx3['has'])
     return rx3
 
-def rxs_sort(rxs):
-    for i,x in enumerate(rxs):
-     for j,y in enumerate(rxs):
-         if mid(x) < mid(y):
-             rxs[j],rxs[i]=rxs[i],rxs[j]
-    return rxs
+
 
 def tiles(rxs):
   huge = float('inf')
@@ -406,19 +423,48 @@ def tiles(rxs):
     def of(x,most):
         return int(max(0, min(most, x)))
     
+    def at(x):
+        return t[of(len(t)*x//1, len(t))]
+
+    def pos(x):
+        return math.floor(of(the['width']*(x-lo)/(hi-lo+1E-32)//1, the['width']))
+
+    for i in range(0,the['width']+1):
+        u.append(" ")
+    a,b,c,d,e= at(.1), at(.3), at(.5), at(.7), at(.9) 
+    A,B,C,D,E= pos(a), pos(b), pos(c), pos(d), pos(e)
+    for i in range(A,B+1):
+        u[i]="-"
+    for i in range(D,E+1):
+        u[i]="-"
+    u[the['width']//2] = "|" 
+    u[C] = "*"
+    x = []
+    for i in [a,b,c,d,e]:
+        x.append(the['Fmt'].format(i))
+    rx['show'] = ''.join(u) + str(x)
+  return rxs
+def rxs_sort(rxs):
+    for i,x in enumerate(rxs):
+     for j,y in enumerate(rxs):
+         if mid(x) < mid(y):
+             rxs[j],rxs[i]=rxs[i],rxs[j]
+    return rxs  
+
+
 def scottKnot(rxs, NUM):
-    def merges(i,j):
-        out = RX([],rxs[i]['name'])
-        for k in range(i, j+1):
-            out = merge(out, rxs[j])
-        return out
+  def merges(i,j):
+    out = RX([],rxs[i]['name'])
+    for k in range(i, j+1):
+        out = merge(out, rxs[j])
+    return out
   
-def same(lo,cut,hi):
+  def same(lo,cut,hi):
     l= merges(lo,cut)
     r= merges(cut+1,hi)
     return cliffsDelta(l['has'], r['has']) and bootstrap(l['has'], r['has'], NUM)
   
-def recurse(lo,hi,rank):
+  def recurse(lo,hi,rank):
     b4 = merges(lo,hi)
     best = 0
     cut = None
@@ -437,8 +483,7 @@ def recurse(lo,hi,rank):
       for i in range(lo,hi+1):
         rxs[i]['rank'] = rank
     return rank
-    rxs = rxs_sort(rxs)
-    cohen = div(merges(0,len(rxs)-1)) * the['cohen']
-    recurse(0, len(rxs)-1, 1)
-    return rxs
-
+  rxs = rxs_sort(rxs)
+  cohen = div(merges(0,len(rxs)-1)) * the['cohen']
+  recurse(0, len(rxs)-1, 1)
+  return rxs

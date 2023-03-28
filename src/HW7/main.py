@@ -26,10 +26,8 @@ def main():
 
 
 if __name__ == "__main__":
+    
     eg("the", "testng the", test_the())
-    eg("the", "testng the", eg())
-    eg("num", "testing the num class", test_num())
-    eg("rand", "testing Random function", test_rand())
     eg('nums', 'nums', test_num())
     eg('gauss', 'gauss', test_gauss())
     eg('five', 'five', test_five())
@@ -39,4 +37,5 @@ if __name__ == "__main__":
     eg('basic', 'basic', test_basic())
     eg('pre', 'pre', test_pre())
     eg('sk', 'sk', test_scKt())
+    eg('sample', 'sample', test_sample())
     main()

@@ -7,7 +7,9 @@ the = {
     'cliff':.4, 
     'cohen':.35,
     'Fmt': "{:.2f}", 
-    'width':40
+    'width':40,
+    'Max':512,
+    'file':"/Users/harshithaparuchuri/Documents/NCSU/sem2/ASE/ASE591-HW_GP6-12/etc/data/auto93.csv",
 }
 
 help = '''USAGE: python main.py  [OPTIONS] [-g ACTION]
