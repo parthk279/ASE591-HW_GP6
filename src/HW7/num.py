@@ -1,5 +1,5 @@
 import math
-from numerics import *
+
 
 
 class NUM:
@@ -48,11 +48,6 @@ class NUM:
         else:
             return (self.m2 / (self.n - 1)) ** 0.5
 
-    def rnd(self, x, n):
-        if x == "?":
-            return x
-        else:
-            return rnd(x, n)
 
     def norm(self, n):
         return n if n == "?" else (n - self.lo) / (self.hi - self.lo + 1e-32)

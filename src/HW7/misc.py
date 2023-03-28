@@ -1,5 +1,5 @@
 import sys, re, math, copy, json, random
-from numerics import *
+
 from config import *
 from operator import itemgetter
 import os
@@ -150,11 +150,6 @@ def push(t, x):
     return x
 
 
-def any(iterable):
-    """
-    Returns random item from an iterable
-    """
-    return iterable[rint(0, len(iterable) - 1)]
 
 
 def many(iterable, n):
@@ -211,28 +206,8 @@ def showTree(node, what, cols, nPlaces, lvl = 0):
     showTree(node.get('left'), what,cols, nPlaces, lvl+1)
     showTree(node.get('right'), what,cols,nPlaces, lvl+1)
 
-def bins(cols,rowss):
-    out = []
-    for col in cols:
-        ranges = {}
-        for y,rows in rowss.items():
-            for row in rows:
-                x = row.cells[col.at]
-                if x != "?":
-                    k = int(bin(col,x))
-                    if not k in ranges:
-                        ranges[k] = RANGE(col.at,col.txt,x)
-                    extend(ranges[k], x, y)
-        ranges = list(dict(sorted(ranges.items())).values())
-        r = ranges if isinstance(col, SYM) else mergeAny(ranges)
-        out.append(r)
-    return out
 
-def bin(col,x):
-    if x=="?" or isinstance(col, SYM):
-        return x
-    tmp = (col.hi - col.lo)/(the['bins'] - 1)
-    return  1 if col.hi == col.lo else math.floor(x/tmp + .5)*tmp
+
    
 def prune(rule, maxSize):
     n=0
@@ -244,8 +219,7 @@ def prune(rule, maxSize):
     if n > 0:
         return rule
 
-def RANGE(at,txt,lo,hi=None):
-    return {'at':at,'txt':txt,'lo':lo,'hi':lo or hi or lo,'y':SYM()}
+
 
 def extend(range,n,s):
     range['lo'] = min(n, range['lo'])
@@ -293,25 +267,6 @@ def mergeAny(ranges0):
         j = j+1
     return noGaps(ranges0) if len(ranges0)==len(ranges1) else mergeAny(ranges1)
 
-def firstN(sortedRanges,scoreFun):
-    print("")
-    def function(r):
-        print(r['range']['txt'],r['range']['lo'],r['range']['hi'],rnd(r['val']),r['range']['y'].has)
-    _ = list(map(function, sortedRanges))
-    print()
-    first = sortedRanges[0]['val']
-    def useful(range):
-        if range['val']>.05 and range['val']> first/10:
-            return range
-    sortedRanges = [x for x in sortedRanges if useful(x)]
-    most,out = -1, -1
-    for n in range(1,len(sortedRanges)+1):
-        slice = sortedRanges[0:n]
-        slice_range = [x['range'] for x in slice]
-        tmp,rule = scoreFun(slice_range)
-        if tmp and tmp > most:
-            out,most = rule,tmp
-    return out,most
 
 def gaussian(mu, sd):
     mu, sd = mu or 0, sd or 1
@@ -340,7 +295,7 @@ def samples(t, n=None):
 def delta(i, other):
   e, y, y1= 1E-32, i, other
   return (abs(y.mu - y1.mu) / ((e + y.sd**2/y.n + y1.sd**2/y1.n)**.5))
-  
+
 def bootstrap(y0,z0, NUM):
     x, y, z, yhat, zhat = NUM(), NUM(), NUM(), [], []
     for y1 in y0:
